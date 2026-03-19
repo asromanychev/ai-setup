@@ -1,0 +1,11 @@
+[tools]
+direnv = "latest"
+fzf = "latest"
+gitleaks = "latest"
+jq = "latest"
+kubectl = "latest"
+neovim = "latest"
+node = "latest"
+ruby = "3.4.8"
+yarn = "1"
+zoxide = "latest"
