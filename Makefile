@@ -117,6 +117,12 @@ agents-skills-check-npx:
 
 agents-skills-install: agents-skills-check-npx
 	@echo "$(BLUE)📦 Installing core skills...$(NC)"
+	@for dir in "$$HOME/.claude/skills" "$$HOME/.codex/skills"; do \
+		if [ -d "$$dir/prompt-engeneering" ]; then \
+			echo "  🗑️  Removing old prompt-engeneering (typo) from $$dir"; \
+			rm -rf "$$dir/prompt-engeneering"; \
+		fi; \
+	done
 	@echo "  📥 Installing playwright-cli from microsoft/playwright-cli"
 	@$(SKILLS) add microsoft/playwright-cli --skill playwright-cli -g $(AGENTS_SKILLS_AGENT_FLAGS) -y
 	@echo "  📥 Installing prompt-engineering from CodeAlive-AI/prompt-engineering-skill"
