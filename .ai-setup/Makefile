@@ -4,6 +4,8 @@ BLUE := \033[0;34m
 NC := \033[0m
 PATH := $(HOME)/.local/bin:/usr/local/bin:/opt/homebrew/bin:$(PATH)
 VERSION ?= 0.2.0
+MAKEFILE_DIR := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
+SELF_MAKE := $(MAKEFILE_DIR)Makefile
 
 NPM ?= mise exec -- npm
 CLAUDE ?= mise exec -- claude
@@ -27,7 +29,7 @@ GOOGLE_WORKSPACE_SKILLS := \
 .PHONY: agents-skills-install agents-skills-list agents-skills-check-npx
 
 ai: bootstrap
-	@$(MAKE) agents-install
+	@$(MAKE) -f $(SELF_MAKE) agents-install
 
 bootstrap: mise-package mise-install
 
@@ -41,18 +43,18 @@ version:
 	fi
 
 check:
-	@VERSION=$(VERSION) ./scripts/test-setup.sh
+	@VERSION=$(VERSION) $(MAKEFILE_DIR)scripts/test-setup.sh
 
 extra-check:
 	@CLAUDE_MARKETPLACE_NAMES="$(CLAUDE_MARKETPLACE_NAMES)" \
 	CLAUDE_EXPECTED_PLUGINS="$(CLAUDE_PLUGINS)" \
-	./scripts/test-extras.sh
+	$(MAKEFILE_DIR)scripts/test-extras.sh
 
 check-context:
-	@./scripts/test-context.sh
+	@$(MAKEFILE_DIR)scripts/test-context.sh
 
 codex-context:
-	@./scripts/codex-context.sh
+	@$(MAKEFILE_DIR)scripts/codex-context.sh
 
 mise-package:
 	@set -e; \
