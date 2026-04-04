@@ -34,6 +34,7 @@
 - Spec Review: `/home/aromanychev/edu/ai-setup/homeworks/hw-1/codex/spec-review-001.md`
 - Plan Review: `/home/aromanychev/edu/ai-setup/homeworks/hw-1/codex/plan-review-001.md`
 - Decisions: `/home/aromanychev/edu/ai-setup/homeworks/hw-1/codex/intermediate_solutions/git_issue_1/questions-and-decisions.md`
+- Implementation Commit (`ai-da-collect`): `fde100f` -> https://github.com/asromanychev/ai-da-collect/commit/fde100f
 
 ## Примечание
 

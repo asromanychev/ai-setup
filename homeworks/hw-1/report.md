@@ -20,6 +20,9 @@
 
 Дополнительно сохранено зеркало артефактов в `memory-bank/features/issue_1/` для issue-oriented структуры, но канонический комплект сдачи для ДЗ находится в `memory-bank/features/001/`.
 
+**Связанный commit реализации в `ai-da-collect`:** `fde100f`  
+GitHub: https://github.com/asromanychev/ai-da-collect/commit/fde100f
+
 ---
 
 ## Временные затраты
