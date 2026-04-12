@@ -1,0 +1,30 @@
+{
+  "artifact": "brief",
+  "source_version": "brief-v1.md",
+  "source_scorecard": "brief-score-1.json",
+  "targets": [
+    {
+      "dimension_id": "success_criteria_observability",
+      "current_score": 3,
+      "target_score": 5,
+      "change_scope": [
+        "§6 Критерий успеха — Критерий 1: зафиксировать одну семантику для поведения при дубле"
+      ],
+      "do_not_touch": [
+        "§1 Цель и Проблема",
+        "§2 Стейкхолдер",
+        "§3 Доменный контекст",
+        "§4 Технический контекст",
+        "§5 Когда и зависимости",
+        "§7 Вне скоупа",
+        "Критерии 2, 3, 4 в §6"
+      ],
+      "acceptance_signal": "Критерий 1 содержит одну чётко зафиксированную семантику дубля (upsert ИЛИ skip-with-log), без нераскрытых альтернатив. Термин 'поведение при дубле' выражен через конкретное наблюдаемое доменное поведение."
+    }
+  ],
+  "global_constraints": [
+    "Do not expand scope",
+    "Do not rewrite already-passing sections without evidence",
+    "Do not introduce solution-space details (class names, schema, code)"
+  ]
+}

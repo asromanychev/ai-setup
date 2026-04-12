@@ -1,0 +1,62 @@
+{
+  "artifact": "code",
+  "version": "v1",
+  "scale": {
+    "min": 1,
+    "max": 5,
+    "anchor_levels": [1, 3, 5]
+  },
+  "weights_sum_must_equal": 1.0,
+  "dimensions": [
+    {
+      "id": "scope_compliance",
+      "name": "Scope Compliance",
+      "weight": 0.2,
+      "evaluation_mode": "isolated",
+      "blocker_if_score_lte": 2,
+      "level_1": "Изменения выходят за allowlist или лечат out-of-scope prerequisite скрытой правкой.",
+      "level_3": "Изменения в основном укладываются в allowlist, но есть слабые места по границам scope.",
+      "level_5": "Все изменения строго укладываются в allowlist и соответствуют active spec/plan."
+    },
+    {
+      "id": "invariant_preservation",
+      "name": "Invariant Preservation",
+      "weight": 0.25,
+      "evaluation_mode": "isolated",
+      "blocker_if_score_lte": 2,
+      "level_1": "Ключевые инварианты спеки нарушены или не защищены от контрпримеров.",
+      "level_3": "Основные инварианты соблюдены, но часть гарантий подтверждена слабо.",
+      "level_5": "Все инварианты из спецификации явно сохранены и защищены adversarial-проверками."
+    },
+    {
+      "id": "test_adequacy",
+      "name": "Test Adequacy",
+      "weight": 0.2,
+      "evaluation_mode": "isolated",
+      "blocker_if_score_lte": 2,
+      "level_1": "Тесты не покрывают acceptance criteria или не ловят минимальные контрпримеры.",
+      "level_3": "Тесты покрывают основные сценарии, но часть инвариантов проверена неполно.",
+      "level_5": "Тесты покрывают все acceptance criteria, error-paths и adversarial cases по инвариантам."
+    },
+    {
+      "id": "runtime_readiness",
+      "name": "Runtime Readiness",
+      "weight": 0.15,
+      "evaluation_mode": "isolated",
+      "blocker_if_score_lte": 2,
+      "level_1": "Нужный runtime path не материализован или требует непредусмотренных bootstrap-правок.",
+      "level_3": "Локальный runtime частично подтверждён, но остаются непроверенные execution-gates.",
+      "level_5": "Нужные runtime prerequisites подтверждены, а целевые проверки проходят без скрытых зависимостей."
+    },
+    {
+      "id": "regression_risk",
+      "name": "Regression Risk",
+      "weight": 0.2,
+      "evaluation_mode": "isolated",
+      "blocker_if_score_lte": 2,
+      "level_1": "Изменение создаёт высокий риск регрессий или ломает существующие контракты.",
+      "level_3": "Регрессионный риск умеренный и частично смягчён проверками.",
+      "level_5": "Регрессионный риск низкий: изменение локализовано, контракты сохранены, проверки достаточны."
+    }
+  ]
+}

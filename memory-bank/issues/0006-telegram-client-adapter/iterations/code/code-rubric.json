@@ -1,0 +1,62 @@
+{
+  "artifact": "code",
+  "version": "v1",
+  "scale": {
+    "min": 1,
+    "max": 5,
+    "anchor_levels": [1, 3, 5]
+  },
+  "weights_sum_must_equal": 1.0,
+  "dimensions": [
+    {
+      "id": "spec_equivalence",
+      "name": "Эквивалентность спецификации",
+      "weight": 0.30,
+      "evaluation_mode": "isolated",
+      "blocker_if_score_lte": 2,
+      "level_1": "Код явно нарушает один или более FR или AC из spec.md; есть доказуемый контрпример",
+      "level_3": "Основные FR выполнены; единичные edge cases не реализованы или требуют уточнения",
+      "level_5": "Все FR и AC выполнены; поведение кода доказуемо эквивалентно spec.md; нет провальных контрпримеров"
+    },
+    {
+      "id": "invariant_integrity",
+      "name": "Целостность инвариантов",
+      "weight": 0.25,
+      "evaluation_mode": "isolated",
+      "blocker_if_score_lte": 2,
+      "level_1": "Один или более инвариантов из spec.md нарушены (AR-вызовы, мутабельный DTO, скрытое состояние)",
+      "level_3": "Основные инварианты соблюдены; единичные граничные случаи не защищены",
+      "level_5": "Все 4 инварианта (no AR, frozen DTO, stateless, no logging) соблюдены кодом; deep_freeze/deep_dup применены корректно"
+    },
+    {
+      "id": "scope_compliance",
+      "name": "Соответствие allowlist",
+      "weight": 0.20,
+      "evaluation_mode": "isolated",
+      "blocker_if_score_lte": 2,
+      "level_1": "Изменены файлы вне allowlist plan.md без объяснения; Gemfile изменён",
+      "level_3": "Основной allowlist соблюдён; единичные вспомогательные файлы добавлены с обоснованием",
+      "level_5": "Изменены только 3 файла из allowlist; Gemfile, core/lib, app/models не затронуты"
+    },
+    {
+      "id": "test_coverage_quality",
+      "name": "Качество тестов",
+      "weight": 0.15,
+      "evaluation_mode": "isolated",
+      "blocker_if_score_lte": 2,
+      "level_1": "Тесты отсутствуют или проверяют только happy-path; нет adversarial cases",
+      "level_3": "Тесты покрывают основные случаи; часть adversarial cases отсутствует",
+      "level_5": "Все 16 AC покрыты; stub-транспорт без реальной сети; adversarial cases проверены; retry_delay: 0 используется"
+    },
+    {
+      "id": "code_style",
+      "name": "Стиль и конвенции",
+      "weight": 0.10,
+      "evaluation_mode": "isolated",
+      "blocker_if_score_lte": 2,
+      "level_1": "Грубые нарушения Rubocop или конвенций проекта; отсутствует frozen_string_literal",
+      "level_3": "Основные конвенции соблюдены; единичные стилистические замечания",
+      "level_5": "frozen_string_literal присутствует; стиль соответствует codebase; нет глобального состояния; таймауты и константы именованы"
+    }
+  ]
+}

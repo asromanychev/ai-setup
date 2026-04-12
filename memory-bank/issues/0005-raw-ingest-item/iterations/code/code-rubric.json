@@ -1,0 +1,62 @@
+{
+  "artifact": "code",
+  "version": "v1",
+  "scale": {
+    "min": 1,
+    "max": 5,
+    "anchor_levels": [1, 3, 5]
+  },
+  "weights_sum_must_equal": 1.0,
+  "dimensions": [
+    {
+      "id": "scope_compliance",
+      "name": "Scope Compliance",
+      "weight": 0.25,
+      "evaluation_mode": "isolated",
+      "blocker_if_score_lte": 2,
+      "level_1": "Files changed outside allowlist, or existing contracts broken.",
+      "level_3": "Allowlist mostly respected but one minor deviation exists.",
+      "level_5": "Exactly the files in allowlist were touched. Zero scope breach."
+    },
+    {
+      "id": "invariant_preservation",
+      "name": "Invariant Preservation",
+      "weight": 0.20,
+      "evaluation_mode": "isolated",
+      "blocker_if_score_lte": 2,
+      "level_1": "One or more spec invariants broken in implementation.",
+      "level_3": "Invariants preserved but adversarial cases not tested.",
+      "level_5": "All spec invariants preserved and adversarial tests verify each one."
+    },
+    {
+      "id": "test_adequacy",
+      "name": "Test Adequacy",
+      "weight": 0.25,
+      "evaluation_mode": "isolated",
+      "blocker_if_score_lte": 2,
+      "level_1": "Tests absent or only happy-path covered.",
+      "level_3": "AC covered but adversarial cases missing.",
+      "level_5": "All AC mapped to tests including adversarial, aliasing, and duplicate cases."
+    },
+    {
+      "id": "runtime_readiness",
+      "name": "Runtime Readiness",
+      "weight": 0.20,
+      "evaluation_mode": "isolated",
+      "blocker_if_score_lte": 2,
+      "level_1": "Code cannot run; missing files, syntax errors, or broken prerequisites.",
+      "level_3": "Code runs but focused verification not attempted.",
+      "level_5": "Focused verification passed; regression gate attempted."
+    },
+    {
+      "id": "regression_risk",
+      "name": "Regression Risk",
+      "weight": 0.10,
+      "evaluation_mode": "isolated",
+      "blocker_if_score_lte": 2,
+      "level_1": "Changes break existing tests.",
+      "level_3": "Existing tests untouched but regression gate not verified.",
+      "level_5": "Regression gate explicitly run and passed. 0 failures in existing suite."
+    }
+  ]
+}

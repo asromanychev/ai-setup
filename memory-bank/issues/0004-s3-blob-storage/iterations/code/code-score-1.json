@@ -1,0 +1,68 @@
+{
+  "artifact": "code",
+  "artifact_version": "working-tree",
+  "review_file": "code-review-1.md",
+  "rubric_file": "code-rubric.json",
+  "dimensions": [
+    {
+      "id": "scope_compliance",
+      "score": 5,
+      "weight": 0.2,
+      "confidence": 0.97,
+      "blocker": false,
+      "evidence": [
+        "Reviewed changes are confined to app/services/collect/blob_storage.rb, spec/services/collect/blob_storage_spec.rb, and iterations/code artifacts from the active plan allowlist."
+      ],
+      "fix_expectation": "No repair needed unless new files are introduced outside the active allowlist."
+    },
+    {
+      "id": "invariant_preservation",
+      "score": 5,
+      "weight": 0.25,
+      "confidence": 0.91,
+      "blocker": false,
+      "evidence": [
+        "Constructor and store validations match the required messages, key is returned unchanged, client exceptions are re-raised, and metadata is deep-copied before upload."
+      ],
+      "fix_expectation": "Keep the one-call upload flow and metadata isolation unchanged."
+    },
+    {
+      "id": "test_adequacy",
+      "score": 5,
+      "weight": 0.2,
+      "confidence": 0.89,
+      "blocker": false,
+      "evidence": [
+        "The service spec covers constructor validation, store validation, optional-field forwarding, IO pass-through, repeated writes, exception pass-through, and metadata aliasing."
+      ],
+      "fix_expectation": "Retain the adversarial IO and metadata tests as the minimal regression net for the service contract."
+    },
+    {
+      "id": "runtime_readiness",
+      "score": 3,
+      "weight": 0.15,
+      "confidence": 0.82,
+      "blocker": false,
+      "evidence": [
+        "Pure-service verification passes, but the DB-backed regression gate cannot be completed locally because spec/rails_helper.rb:12 fails with ActiveRecord::ConnectionNotEstablished when PostgreSQL test DB is unavailable."
+      ],
+      "fix_expectation": "Materialize the local/CI PostgreSQL test database and rerun the final regression gate from plan.md."
+    },
+    {
+      "id": "regression_risk",
+      "score": 4,
+      "weight": 0.2,
+      "confidence": 0.87,
+      "blocker": false,
+      "evidence": [
+        "The change is localized and executable with core specs, but full DB-backed model regression remains unconfirmed in the current environment."
+      ],
+      "fix_expectation": "Rerun the full regression command once the DB prerequisite is restored."
+    }
+  ],
+  "confidence": 0.88,
+  "blockers": [],
+  "critical_risks": [],
+  "weighted_score": 4.45,
+  "verdict": "runtime_unknown"
+}

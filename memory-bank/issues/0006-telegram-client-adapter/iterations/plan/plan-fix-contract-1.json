@@ -1,0 +1,17 @@
+{
+  "artifact": "plan",
+  "from_version": "plan-v1.md",
+  "to_version": "plan-v2.md",
+  "review_source": "plan-review-1.md",
+  "score_source": "plan-score-1.json",
+  "fixes": [
+    {
+      "dimension": "test_materialization",
+      "current_score": 4,
+      "target_score": 5,
+      "change_scope": "В Шаге 2 (channel_client.rb): добавить retry_delay: nil в конструктор; заменить прямой sleep на приватный sleep_for(seconds). В Шаге 3 (spec): добавить retry_delay: 0 при создании клиента для retry-тестов.",
+      "do_not_touch": "Граф зависимостей, дельты Шагов 1 и 3, оба runtime gates",
+      "acceptance_signal": "Тесты AC-6 и аналогичные не делают реальных задержек; retry_delay задокументирован в Шаге 3"
+    }
+  ]
+}

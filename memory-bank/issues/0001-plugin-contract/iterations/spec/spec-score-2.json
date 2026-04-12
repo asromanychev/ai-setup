@@ -1,0 +1,76 @@
+{
+  "artifact": "spec",
+  "artifact_version": "spec-v2.md",
+  "review_file": "spec-review-2.md",
+  "rubric_file": "spec-rubric.json",
+  "dimensions": [
+    {
+      "id": "testability",
+      "score": 5,
+      "weight": 0.25,
+      "confidence": 0.95,
+      "blocker": false,
+      "evidence": [
+        "AC содержат конкретные входы, ожидаемые ошибки с текстами сообщений и поведение выхода",
+        "По каждому AC можно написать rspec-пример без дополнительных вопросов",
+        "Раздел Acceptance Criteria содержит 20 явных проверяемых пунктов"
+      ],
+      "fix_expectation": "n/a — готов"
+    },
+    {
+      "id": "uniform_coverage",
+      "score": 5,
+      "weight": 0.25,
+      "confidence": 0.95,
+      "blocker": false,
+      "evidence": [
+        "Состояние 'loading/in progress' явно зафиксировано как неприменимое для синхронного sync_step",
+        "Edge cases для checkpoint_in: nil, {}, { cursor: 'abc' }, { cursor: -1 } — все перечислены",
+        "Edge cases для source_config[:records]: отсутствует ключ, не Array — оба покрыты",
+        "Error table в разделе Uniform содержит все 13 ошибочных сценариев"
+      ],
+      "fix_expectation": "n/a — готов"
+    },
+    {
+      "id": "ambiguity_free",
+      "score": 5,
+      "weight": 0.20,
+      "confidence": 0.95,
+      "blocker": false,
+      "evidence": [
+        "Нет расплывчатых формулировок ('быстро', 'корректно', 'при необходимости')",
+        "Каждый контракт описан через конкретное поведение и текст ошибки",
+        "Семантика emitted_records при cursor > 0 явно: длина фактически возвращённого батча, а не исходного"
+      ],
+      "fix_expectation": "n/a — готов"
+    },
+    {
+      "id": "scope_discipline",
+      "score": 5,
+      "weight": 0.15,
+      "confidence": 0.95,
+      "blocker": false,
+      "evidence": [
+        "NS-* явно закрывают: Telegram, PostgreSQL, S3, Sidekiq, сериализацию checkpoint, более одного плагина",
+        "FR-* не выходят за пределы Plugin/PluginRegistry/NullPlugin и их тестов"
+      ],
+      "fix_expectation": "n/a — готов"
+    },
+    {
+      "id": "grounding",
+      "score": 5,
+      "weight": 0.15,
+      "confidence": 0.95,
+      "blocker": false,
+      "evidence": [
+        "Раздел Grounding содержит таблицу из 10 реальных файлов проекта с ролью каждого",
+        "Все перечисленные файлы существуют в репозитории: core/lib/collect/*.rb, spec/core/collect/*.rb",
+        "Паттерны: Class.new(described_class), deep_dup, normalize_plugin_id — зафиксированы явно"
+      ],
+      "fix_expectation": "n/a — готов"
+    }
+  ],
+  "critical_risks": [],
+  "weighted_score": 5.0,
+  "verdict": "ready_for_activation"
+}

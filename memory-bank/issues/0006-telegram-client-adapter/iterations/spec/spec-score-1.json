@@ -1,0 +1,77 @@
+{
+  "artifact": "spec",
+  "artifact_version": "spec-v1.md",
+  "review_file": "spec-review-1.md",
+  "rubric_file": "spec-rubric.json",
+  "dimensions": [
+    {
+      "id": "testability",
+      "score": 4,
+      "weight": 0.25,
+      "confidence": 0.90,
+      "blocker": false,
+      "evidence": [
+        "14 AC покрывают поведение через stub-транспорт",
+        "Инвариант 3 (stateless) — только в prose adversarial, нет AC",
+        "Инвариант 4 (bot_token не логируется) — нет AC",
+        "TimeoutError — в таблице состояний, но нет AC"
+      ],
+      "fix_expectation": "Добавить AC-15 (timeout), AC-16 (stateless repeat call), AC-17 (bot_token not logged) или явно пометить инвариант 4 как 'enforced by code review'"
+    },
+    {
+      "id": "ambiguity_free",
+      "score": 5,
+      "weight": 0.20,
+      "confidence": 0.95,
+      "blocker": false,
+      "evidence": [
+        "3 попытки, 5/10 сек таймауты, 1 сек default retry — все числа явны",
+        "Нет слов 'быстро', 'удобно', 'при необходимости'"
+      ],
+      "fix_expectation": "N/A"
+    },
+    {
+      "id": "state_uniformity",
+      "score": 4,
+      "weight": 0.20,
+      "confidence": 0.90,
+      "blocker": false,
+      "evidence": [
+        "Покрыты: success, empty, rate-limit x3, 5xx x3, ApiError, TimeoutError, nil inputs, wrong cursor",
+        "loading/in-progress явно признаны неприменимыми",
+        "Инварианты 3 и 4 не материализованы в AC"
+      ],
+      "fix_expectation": "Материализовать инварианты 3 и 4 в falsifiable AC"
+    },
+    {
+      "id": "precondition_hygiene",
+      "score": 5,
+      "weight": 0.20,
+      "confidence": 0.95,
+      "blocker": false,
+      "evidence": [
+        "net/http — stdlib Ruby 3.4 ✓",
+        "json — stdlib ✓",
+        "rspec — Gemfile ✓",
+        "Новые директории явно помечены как 'создаются в этой задаче'"
+      ],
+      "fix_expectation": "N/A"
+    },
+    {
+      "id": "grounding_realism",
+      "score": 5,
+      "weight": 0.15,
+      "confidence": 0.95,
+      "blocker": false,
+      "evidence": [
+        "Все пути grounded или явно создаются в задаче",
+        "Паттерн соответствует tech_clients_auto_external-adapters.mdc",
+        "Gemfile не меняется — всё из stdlib"
+      ],
+      "fix_expectation": "N/A"
+    }
+  ],
+  "critical_risks": [],
+  "weighted_score": 4.55,
+  "verdict": "rework_required"
+}

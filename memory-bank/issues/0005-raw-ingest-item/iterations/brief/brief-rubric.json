@@ -1,0 +1,62 @@
+{
+  "artifact": "brief",
+  "version": "v1",
+  "scale": {
+    "min": 1,
+    "max": 5,
+    "anchor_levels": [1, 3, 5]
+  },
+  "weights_sum_must_equal": 1.0,
+  "dimensions": [
+    {
+      "id": "problem_clarity",
+      "name": "Problem Clarity",
+      "weight": 0.25,
+      "evaluation_mode": "isolated",
+      "blocker_if_score_lte": 2,
+      "level_1": "Problem is absent, vague, or stated only as a solution wish. No observable symptom.",
+      "level_3": "Problem is described but uses abstract language or soft metrics. Symptom is identifiable but not precisely bounded.",
+      "level_5": "Problem is stated as a concrete, observable symptom with a measurable gap. No solution language present."
+    },
+    {
+      "id": "stakeholder_specificity",
+      "name": "Stakeholder Specificity",
+      "weight": 0.15,
+      "evaluation_mode": "isolated",
+      "blocker_if_score_lte": 2,
+      "level_1": "No stakeholder mentioned or stakeholder is generic ('users').",
+      "level_3": "Stakeholder role identified but motivation or impact unclear.",
+      "level_5": "Stakeholder role named with clear motivation and why this issue matters now."
+    },
+    {
+      "id": "problem_solution_separation",
+      "name": "Problem/Solution Separation",
+      "weight": 0.25,
+      "evaluation_mode": "isolated",
+      "blocker_if_score_lte": 2,
+      "level_1": "Brief proposes technical implementation details: table names, class names, gem choices, schema structure.",
+      "level_3": "Brief mostly stays in problem space but one or two solution-space leaks exist.",
+      "level_5": "Brief contains zero solution-space details. No class names, table columns, or implementation mechanisms."
+    },
+    {
+      "id": "success_criteria_observability",
+      "name": "Success Criteria Observability",
+      "weight": 0.20,
+      "evaluation_mode": "isolated",
+      "blocker_if_score_lte": 2,
+      "level_1": "Success criteria absent or only reference code artifacts (tests, migrations, class presence).",
+      "level_3": "Success criteria describe system behavior but include at least one undefined term or solution-space detail.",
+      "level_5": "Each success criterion is expressed as a verifiable system behavior or domain outcome with no undefined terms."
+    },
+    {
+      "id": "scope_boundary_integrity",
+      "name": "Scope Boundary Integrity",
+      "weight": 0.15,
+      "evaluation_mode": "isolated",
+      "blocker_if_score_lte": 2,
+      "level_1": "Out-of-scope section is absent or excludes something required to fix the stated problem.",
+      "level_3": "Out-of-scope section exists but is incomplete or uses vague boundaries.",
+      "level_5": "Out-of-scope section explicitly lists related but excluded areas without conflicting with the success criteria."
+    }
+  ]
+}

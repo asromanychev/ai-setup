@@ -1,0 +1,62 @@
+{
+  "artifact": "spec",
+  "version": "v1",
+  "scale": {
+    "min": 1,
+    "max": 5,
+    "anchor_levels": [1, 3, 5]
+  },
+  "weights_sum_must_equal": 1.0,
+  "dimensions": [
+    {
+      "id": "testability",
+      "name": "Testability",
+      "weight": 0.2,
+      "evaluation_mode": "isolated",
+      "blocker_if_score_lte": 2,
+      "level_1": "Acceptance criteria are missing or cannot be turned into automated tests.",
+      "level_3": "Most requirements are testable, but some edge cases or invariants are not materialized as falsifiable checks.",
+      "level_5": "All requirements, invariants, and boundary cases are expressed as observable behavior with direct test hooks."
+    },
+    {
+      "id": "ambiguity_free",
+      "name": "Ambiguity Free",
+      "weight": 0.2,
+      "evaluation_mode": "isolated",
+      "blocker_if_score_lte": 2,
+      "level_1": "The spec uses vague language and leaves key behavior open to interpretation.",
+      "level_3": "Core behavior is concrete, but some wording still allows multiple implementations.",
+      "level_5": "The document is precise, falsifiable, and free from vague qualifiers."
+    },
+    {
+      "id": "state_uniformity",
+      "name": "State Uniformity",
+      "weight": 0.2,
+      "evaluation_mode": "isolated",
+      "blocker_if_score_lte": 2,
+      "level_1": "Success, error, empty, and boundary states are not covered or are internally inconsistent.",
+      "level_3": "Main states are covered, but one or more boundary contracts are not materialized in scenarios or AC.",
+      "level_5": "All applicable states and adversarial cases are covered consistently, including explicit non-applicable states."
+    },
+    {
+      "id": "precondition_hygiene",
+      "name": "Precondition Hygiene",
+      "weight": 0.2,
+      "evaluation_mode": "isolated",
+      "blocker_if_score_lte": 2,
+      "level_1": "External prerequisites are hidden inside implementation scope or grounding.",
+      "level_3": "Some prerequisites are visible, but stop conditions or scope boundaries are incomplete.",
+      "level_5": "Every external prerequisite is explicit, scoped correctly, and separated from the implementation contract."
+    },
+    {
+      "id": "grounding_realism",
+      "name": "Grounding Realism",
+      "weight": 0.2,
+      "evaluation_mode": "isolated",
+      "blocker_if_score_lte": 2,
+      "level_1": "The spec relies on files, dependencies, or runtime mechanisms that do not exist in the repository.",
+      "level_3": "The design is mostly grounded, but some stated implementation paths or guarantees are weakly evidenced.",
+      "level_5": "The design is tightly anchored to existing files, dependencies, and project patterns with no invented infrastructure."
+    }
+  ]
+}

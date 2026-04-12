@@ -1,0 +1,76 @@
+{
+  "artifact": "plan",
+  "artifact_version": "plan-v4.md",
+  "review_file": "plan-review-4.md",
+  "rubric_file": "plan-rubric.json",
+  "dimensions": [
+    {
+      "id": "atomicity",
+      "score": 5,
+      "weight": 0.20,
+      "confidence": 0.95,
+      "blocker": false,
+      "evidence": [
+        "Каждый шаг ссылается на один файл: plugin.rb, null_plugin.rb, plugin_registry_spec.rb, plugin_registry.rb, plugin_contract_spec.rb, null_plugin_spec.rb, registry_null_plugin_integration_spec.rb",
+        "Шаг 10 (верификация) — единственный исключающий правило: команда + порог — обоснован как финальный gate"
+      ],
+      "fix_expectation": "n/a — готов"
+    },
+    {
+      "id": "delta_first",
+      "score": 5,
+      "weight": 0.25,
+      "confidence": 0.90,
+      "blocker": false,
+      "evidence": [
+        "Шаг 3 (plugin.rb): что добавить (deep_freeze helper, применение к source_config, checkpoint_in, результату), что не трогать (validate_checkpoint!, сигнатуры, сообщения ContractError)",
+        "Шаг 4 (null_plugin.rb): переопределить initialize — вызвать super, затем добавить валидацию; доработать perform_sync_step с конкретными дельтами",
+        "Шаг 6 условный: зафиксировано 'только конкретное расхождение, без рефакторинга'"
+      ],
+      "fix_expectation": "n/a — готов"
+    },
+    {
+      "id": "sequencing",
+      "score": 5,
+      "weight": 0.20,
+      "confidence": 0.95,
+      "blocker": false,
+      "evidence": [
+        "Порядок: plugin.rb → null_plugin.rb → plugin_registry_spec.rb → (условно) plugin_registry.rb → тесты по слоям → верификация",
+        "Условный шаг 6 явно привязан к результату шага 5 (запуск plugin_registry_spec.rb): 'если тесты выявили расхождение'",
+        "Подтверждено в plan-review-4: 'условный шаг 6 теперь корректно привязан к наблюдаемому результату шага 5'"
+      ],
+      "fix_expectation": "n/a — готов"
+    },
+    {
+      "id": "runtime_gate",
+      "score": 4,
+      "weight": 0.20,
+      "confidence": 0.85,
+      "blocker": false,
+      "evidence": [
+        "Шаг 10: bundle exec rspec spec/core/collect/ с явным pass/fail критерием (все тесты, coverage ≥80%)",
+        "Шаг 5 содержит промежуточную верификацию focused: bundle exec rspec spec/core/collect/plugin_registry_spec.rb",
+        "Минус: два gate не оформлены явно как 'focused verification' и 'regression gate' в терминах MAKE_NEW_ISSUE — это ретроспективный gap"
+      ],
+      "fix_expectation": "n/a — активирован как есть; gap зафиксирован в cycle-analysis"
+    },
+    {
+      "id": "vibe_contract",
+      "score": 2,
+      "weight": 0.15,
+      "confidence": 0.95,
+      "blocker": true,
+      "evidence": [
+        "VibeContract раздел отсутствует в plan-v4.md — этого требования не было в старом процессе",
+        "Pre/Post/Invariants не зафиксированы явно как отдельный раздел плана",
+        "Предусловия частично покрыты в шаге 2 (grounding), постусловия — в шаге 10 (runtime gate)"
+      ],
+      "fix_expectation": "Добавить раздел VibeContract с Предусловие/Постусловие/Инварианты в plan.md как часть ретроспективного обновления"
+    }
+  ],
+  "critical_risks": ["vibe_contract"],
+  "weighted_score": 4.05,
+  "verdict": "ready_for_activation",
+  "_note": "Вердикт ready_for_activation принят с исключением по vibe_contract: этот раздел не существовал в момент создания плана (старый процесс). Активирован ретроспективно. VibeContract добавлен в plan.md при обновлении под новый процесс."
+}

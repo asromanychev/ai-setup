@@ -1,0 +1,42 @@
+{
+  "artifact": "plan",
+  "source_version": "plan-v1.md",
+  "source_scorecard": "plan-score-1.json",
+  "targets": [
+    {
+      "dimension_id": "runtime_gate_quality",
+      "current_score": 3,
+      "target_score": 5,
+      "change_scope": [
+        "Step 4 final runtime gate",
+        "Plan dependency graph",
+        "Verification commands"
+      ],
+      "do_not_touch": [
+        "Implementation scope limited to app/services and spec",
+        "No bootstrap or core/lib expansion"
+      ],
+      "acceptance_signal": "The last step is a pure runtime gate that explicitly verifies both the new service spec and the existing regression suite with concrete commands and pass/fail criteria."
+    },
+    {
+      "dimension_id": "test_materialization",
+      "current_score": 3,
+      "target_score": 5,
+      "change_scope": [
+        "Observational prerequisite/setup step",
+        "Verification wording for secret-free local execution",
+        "Service spec materialization notes"
+      ],
+      "do_not_touch": [
+        "Core blob-storage contract",
+        "No real S3 integration and no ENV wiring"
+      ],
+      "acceptance_signal": "At least one explicit command runs the relevant checks with AWS env vars unset and yields an observable green signal without live S3."
+    }
+  ],
+  "global_constraints": [
+    "Do not expand scope beyond one service object and its specs.",
+    "Do not rewrite already-passing delta descriptions without evidence.",
+    "Do not introduce config/application.rb or initializer changes because active spec forbids bootstrap expansion."
+  ]
+}

@@ -1,0 +1,56 @@
+{
+  "artifact": "spec",
+  "artifact_version": "spec-v2.md",
+  "review_file": "spec-review-2.md",
+  "rubric_file": "spec-rubric.json",
+  "dimensions": [
+    {
+      "id": "testability",
+      "score": 5,
+      "weight": 0.25,
+      "confidence": 0.95,
+      "blocker": false,
+      "evidence": ["16 AC; все инварианты материализованы; AC-15 (timeout), AC-16 (stateless) добавлены"],
+      "fix_expectation": "N/A"
+    },
+    {
+      "id": "ambiguity_free",
+      "score": 5,
+      "weight": 0.20,
+      "confidence": 0.95,
+      "blocker": false,
+      "evidence": ["Все числа явны; нет слов-паразитов"],
+      "fix_expectation": "N/A"
+    },
+    {
+      "id": "state_uniformity",
+      "score": 5,
+      "weight": 0.20,
+      "confidence": 0.95,
+      "blocker": false,
+      "evidence": ["Все состояния покрыты; инвариант 4 явно помечен 'enforced by code review'"],
+      "fix_expectation": "N/A"
+    },
+    {
+      "id": "precondition_hygiene",
+      "score": 5,
+      "weight": 0.20,
+      "confidence": 0.95,
+      "blocker": false,
+      "evidence": ["Все зависимости из stdlib или Gemfile; новые директории явно в scope"],
+      "fix_expectation": "N/A"
+    },
+    {
+      "id": "grounding_realism",
+      "score": 5,
+      "weight": 0.15,
+      "confidence": 0.95,
+      "blocker": false,
+      "evidence": ["Все пути grounded; паттерн соответствует конвенциям"],
+      "fix_expectation": "N/A"
+    }
+  ],
+  "critical_risks": [],
+  "weighted_score": 5.0,
+  "verdict": "ready_for_activation"
+}

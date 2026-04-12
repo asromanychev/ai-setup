@@ -1,0 +1,23 @@
+{
+  "artifact": "brief|spec|plan|code",
+  "source_version": "brief-v1.md",
+  "source_scorecard": "brief-score-1.json",
+  "targets": [
+    {
+      "dimension_id": "dimension_id",
+      "current_score": 2,
+      "target_score": 4,
+      "change_scope": [
+        "Section or file that may be edited"
+      ],
+      "do_not_touch": [
+        "Section or file that must remain stable"
+      ],
+      "acceptance_signal": "Observable sign that this repair is complete"
+    }
+  ],
+  "global_constraints": [
+    "Do not expand scope",
+    "Do not rewrite already-passing sections without evidence"
+  ]
+}

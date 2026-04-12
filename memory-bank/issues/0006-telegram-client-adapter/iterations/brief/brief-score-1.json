@@ -1,0 +1,71 @@
+{
+  "artifact": "brief",
+  "artifact_version": "brief-v1.md",
+  "review_file": "brief-review-1.md",
+  "rubric_file": "brief-rubric.json",
+  "dimensions": [
+    {
+      "id": "problem_clarity",
+      "score": 5,
+      "weight": 0.25,
+      "confidence": 0.95,
+      "blocker": false,
+      "evidence": [
+        "Симптом: 'нет ни класса, ни интерфейса, который можно было бы вызвать с идентификатором канала и получить в ответ сообщения'",
+        "Чёткое до/после: сейчас — отсутствует, после — возвращает коллекцию сообщений"
+      ],
+      "fix_expectation": "Нет — оценка максимальная"
+    },
+    {
+      "id": "stakeholder_specificity",
+      "score": 5,
+      "weight": 0.15,
+      "confidence": 0.95,
+      "blocker": false,
+      "evidence": [
+        "'Разработчик ядра и плагина ai-da-collect'",
+        "'без этого компонента невозможно реализовать Telegram-плагин и начать ingestion'"
+      ],
+      "fix_expectation": "Нет — оценка максимальная"
+    },
+    {
+      "id": "problem_solution_separation",
+      "score": 4,
+      "weight": 0.25,
+      "confidence": 0.90,
+      "blocker": false,
+      "evidence": [
+        "В разделе 4 упомянуты 'VCR, WebMock или аналог' — конкретные инструменты тестирования (Solution Space)",
+        "В целом решение не описывается, только ограничения"
+      ],
+      "fix_expectation": "Убрать упоминание конкретных инструментов (VCR, WebMock); заменить на 'заглушки HTTP-ответов'"
+    },
+    {
+      "id": "success_criteria_observability",
+      "score": 4,
+      "weight": 0.20,
+      "confidence": 0.90,
+      "blocker": false,
+      "evidence": [
+        "Критерии 1, 2, 4 — полностью наблюдаемы",
+        "Критерий 3: 'за пределами зафиксированных случаев' — размытая формулировка"
+      ],
+      "fix_expectation": "В критерии 3 уточнить: 'кроме ошибки rate limit exceeded при исчерпании попыток'"
+    },
+    {
+      "id": "scope_boundary_integrity",
+      "score": 5,
+      "weight": 0.15,
+      "confidence": 0.95,
+      "blocker": false,
+      "evidence": [
+        "Раздел 7 содержит 6 явных пунктов исключений",
+        "Ни одно исключение не блокирует достижение критериев успеха"
+      ],
+      "fix_expectation": "Нет — оценка максимальная"
+    }
+  ],
+  "critical_risks": [],
+  "weighted_score": 4.55,
+  "verdict": "ready_for_activation"
+}

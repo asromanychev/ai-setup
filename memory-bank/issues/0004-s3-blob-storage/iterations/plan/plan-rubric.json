@@ -1,0 +1,62 @@
+{
+  "artifact": "plan",
+  "version": "v1",
+  "scale": {
+    "min": 1,
+    "max": 5,
+    "anchor_levels": [1, 3, 5]
+  },
+  "weights_sum_must_equal": 1.0,
+  "dimensions": [
+    {
+      "id": "dependency_order",
+      "name": "Dependency Order",
+      "weight": 0.2,
+      "evaluation_mode": "isolated",
+      "blocker_if_score_lte": 2,
+      "level_1": "Steps are ordered incorrectly and later work depends on files or setup that do not exist yet.",
+      "level_3": "Most dependencies are ordered correctly, but some steps still rely on implicit assumptions.",
+      "level_5": "Every step is topologically sound, prerequisite checks come first, and later work only depends on earlier observable outputs."
+    },
+    {
+      "id": "step_atomicity",
+      "name": "Step Atomicity",
+      "weight": 0.2,
+      "evaluation_mode": "isolated",
+      "blocker_if_score_lte": 2,
+      "level_1": "Steps bundle multiple unrelated edits or mix implementation, diagnosis, and follow-up fixes in one unit.",
+      "level_3": "Most steps are separately executable, but some still combine more than one logical change.",
+      "level_5": "Each step targets one file or one tightly scoped module change and can be executed and checked independently."
+    },
+    {
+      "id": "delta_specificity",
+      "name": "Delta Specificity",
+      "weight": 0.2,
+      "evaluation_mode": "isolated",
+      "blocker_if_score_lte": 2,
+      "level_1": "The plan repeats desired end state without grounding in current code or explicit do-not-touch constraints.",
+      "level_3": "Some steps describe the starting point and missing delta, but others stay generic.",
+      "level_5": "Every edit step states what already exists, what spec-driven delta is missing, and what must remain unchanged unless an earlier observable failure proves otherwise."
+    },
+    {
+      "id": "runtime_gate_quality",
+      "name": "Runtime Gate Quality",
+      "weight": 0.2,
+      "evaluation_mode": "isolated",
+      "blocker_if_score_lte": 2,
+      "level_1": "There is no final runtime gate or it mixes verification with extra debugging or edits.",
+      "level_3": "A final gate exists, but commands, pass criteria, or prerequisite setup are only partially specified.",
+      "level_5": "The last step is a pure runtime gate with concrete commands, explicit pass/fail signals, and all required acceptance thresholds and regression checks."
+    },
+    {
+      "id": "test_materialization",
+      "name": "Test Materialization",
+      "weight": 0.2,
+      "evaluation_mode": "isolated",
+      "blocker_if_score_lte": 2,
+      "level_1": "Acceptance criteria, edge cases, or runtime prerequisites are left as prose and not turned into executable test/setup steps.",
+      "level_3": "Core tests are planned, but some edge cases or prerequisite setup remain implicit.",
+      "level_5": "All acceptance criteria, runtime prerequisites, and non-trivial edge cases are mapped to executable tests or explicit observational/setup steps."
+    }
+  ]
+}

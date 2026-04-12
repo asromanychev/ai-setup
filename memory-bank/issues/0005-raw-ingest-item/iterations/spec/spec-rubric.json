@@ -1,0 +1,62 @@
+{
+  "artifact": "spec",
+  "version": "v1",
+  "scale": {
+    "min": 1,
+    "max": 5,
+    "anchor_levels": [1, 3, 5]
+  },
+  "weights_sum_must_equal": 1.0,
+  "dimensions": [
+    {
+      "id": "testability",
+      "name": "Testability",
+      "weight": 0.25,
+      "evaluation_mode": "isolated",
+      "blocker_if_score_lte": 2,
+      "level_1": "No Acceptance Criteria or criteria describe code artifacts rather than behavior.",
+      "level_3": "AC exist but some are ambiguous or cannot directly drive test cases.",
+      "level_5": "Each AC describes an observable system behavior; tests can be written directly from AC."
+    },
+    {
+      "id": "ambiguity_free",
+      "name": "Ambiguity Free",
+      "weight": 0.20,
+      "evaluation_mode": "isolated",
+      "blocker_if_score_lte": 2,
+      "level_1": "Multiple vague terms: 'fast', 'convenient', 'if needed', 'etc.'",
+      "level_3": "One or two borderline terms but overall intent is clear.",
+      "level_5": "Zero ambiguous terms. Every term either defined or self-evident from context."
+    },
+    {
+      "id": "state_uniformity",
+      "name": "State Uniformity",
+      "weight": 0.20,
+      "evaluation_mode": "isolated",
+      "blocker_if_score_lte": 2,
+      "level_1": "Only happy-path described. Error states and edge cases absent.",
+      "level_3": "Some error states covered but loading/empty/adversarial cases missing.",
+      "level_5": "All states (success, error, empty, inapplicable) and adversarial cases explicitly covered."
+    },
+    {
+      "id": "precondition_hygiene",
+      "name": "Precondition Hygiene",
+      "weight": 0.20,
+      "evaluation_mode": "isolated",
+      "blocker_if_score_lte": 2,
+      "level_1": "External prerequisite masked as implementation step. No preconditions section.",
+      "level_3": "Prerequisites mentioned but not isolated in a dedicated Preconditions section.",
+      "level_5": "All external prerequisites isolated in Preconditions section with explicit stop conditions."
+    },
+    {
+      "id": "grounding_realism",
+      "name": "Grounding Realism",
+      "weight": 0.15,
+      "evaluation_mode": "isolated",
+      "blocker_if_score_lte": 2,
+      "level_1": "Spec references non-existent files, gems or patterns not in the project.",
+      "level_3": "Mostly grounded but one or two references need verification.",
+      "level_5": "All file paths, patterns and gems verified to exist in the current codebase."
+    }
+  ]
+}

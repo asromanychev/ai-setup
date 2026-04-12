@@ -1,0 +1,62 @@
+{
+  "artifact": "code",
+  "version": "v1",
+  "scale": {
+    "min": 1,
+    "max": 5,
+    "anchor_levels": [1, 3, 5]
+  },
+  "weights_sum_must_equal": 1.0,
+  "dimensions": [
+    {
+      "id": "spec_coverage",
+      "name": "Покрытие spec AC",
+      "weight": 0.30,
+      "evaluation_mode": "isolated",
+      "blocker_if_score_lte": 2,
+      "level_1": "Более трёх AC из spec.md не реализованы. Ключевые инварианты отсутствуют в коде.",
+      "level_3": "Все основные AC реализованы. 1-2 edge case или adversarial сценария упущены.",
+      "level_5": "Каждый AC из spec.md трассируется до конкретных строк реализации и теста. Edge cases и adversarial сценарии покрыты."
+    },
+    {
+      "id": "contract_compliance",
+      "name": "Соблюдение инвариантов",
+      "weight": 0.25,
+      "evaluation_mode": "isolated",
+      "blocker_if_score_lte": 2,
+      "level_1": "Ключевые инварианты (иммутабельность, детерминизм, изоляция) нарушены или не реализованы.",
+      "level_3": "Основные инварианты реализованы, но не все граничные случаи (мутабельные ключи Hash, aliasing) покрыты.",
+      "level_5": "Все инварианты реализованы и проверены adversarial тестами: deep freeze на входах и выходе, независимость от внешних объектов, детерминизм при идентичных входах."
+    },
+    {
+      "id": "scope_discipline",
+      "name": "Дисциплина scope (только allowlist)",
+      "weight": 0.20,
+      "evaluation_mode": "isolated",
+      "blocker_if_score_lte": 2,
+      "level_1": "Изменены файлы за пределами allowlist plan.md без явной эскалации.",
+      "level_3": "Изменения в целом в scope, но есть 1-2 'заодно' правки вне allowlist.",
+      "level_5": "Изменены только файлы из allowlist plan.md. Ни одного scope creep без явного обоснования."
+    },
+    {
+      "id": "test_quality",
+      "name": "Качество тестов",
+      "weight": 0.15,
+      "evaluation_mode": "isolated",
+      "blocker_if_score_lte": 2,
+      "level_1": "Тесты только на happy path. Error cases, edge cases и adversarial сценарии не покрыты.",
+      "level_3": "Основные error cases покрыты. Adversarial сценарии частично, некоторые инварианты не материализованы в falsifiable тестах.",
+      "level_5": "Каждый инвариант из spec.md материализован в тесте. Adversarial сценарии (aliasing, мутация ключей, повторный вызов) проверены явно."
+    },
+    {
+      "id": "runtime_gate",
+      "name": "Runtime gate статус",
+      "weight": 0.10,
+      "evaluation_mode": "isolated",
+      "blocker_if_score_lte": 2,
+      "level_1": "Тесты не запущены. Runtime состояние неизвестно.",
+      "level_3": "Тесты запущены, focused verification зелёный. Regression gate или coverage не подтверждены.",
+      "level_5": "Оба runtime gates подтверждены: focused verification зелёный, regression gate зелёный, coverage threshold пройден."
+    }
+  ]
+}

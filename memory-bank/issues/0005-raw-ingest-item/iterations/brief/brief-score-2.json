@@ -1,0 +1,59 @@
+{
+  "artifact": "brief",
+  "artifact_version": "brief-v2.md",
+  "review_file": "brief-review-2.md",
+  "rubric_file": "brief-rubric.json",
+  "dimensions": [
+    {
+      "id": "problem_clarity",
+      "score": 5,
+      "weight": 0.25,
+      "confidence": 0.95,
+      "blocker": false,
+      "evidence": ["Three observable symptoms. No solution-language."],
+      "fix_expectation": "None."
+    },
+    {
+      "id": "stakeholder_specificity",
+      "score": 5,
+      "weight": 0.15,
+      "confidence": 0.95,
+      "blocker": false,
+      "evidence": ["Stakeholder: sync-orchestrator / background jobs. Motivation: idempotent ingestion."],
+      "fix_expectation": "None."
+    },
+    {
+      "id": "problem_solution_separation",
+      "score": 4,
+      "weight": 0.25,
+      "confidence": 0.85,
+      "blocker": false,
+      "evidence": ["§4 file paths and ActiveRecord are borderline but describe existing env constraints, not solution design."],
+      "fix_expectation": "Minor. Acceptable as env constraint description."
+    },
+    {
+      "id": "success_criteria_observability",
+      "score": 5,
+      "weight": 0.20,
+      "confidence": 0.95,
+      "blocker": false,
+      "evidence": [
+        "Criterion 1 now states skip-with-log explicitly: no record created/changed on duplicate, duplicate fact logged.",
+        "All 4 criteria describe observable domain behaviors."
+      ],
+      "fix_expectation": "None."
+    },
+    {
+      "id": "scope_boundary_integrity",
+      "score": 5,
+      "weight": 0.15,
+      "confidence": 0.95,
+      "blocker": false,
+      "evidence": ["§7 now contains 7 explicit exclusions including explicit rejection of upsert-overwrite semantics."],
+      "fix_expectation": "None."
+    }
+  ],
+  "critical_risks": [],
+  "weighted_score": 4.85,
+  "verdict": "ready_for_activation"
+}

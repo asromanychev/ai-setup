@@ -1,0 +1,54 @@
+{
+  "artifact": "spec",
+  "source_version": "spec-v1.md",
+  "source_scorecard": "spec-score-1.json",
+  "targets": [
+    {
+      "dimension_id": "state_uniformity",
+      "current_score": 3,
+      "target_score": 5,
+      "change_scope": [
+        "Section 4. Сценарии ошибок и состояния",
+        "Section 7. Acceptance Criteria"
+      ],
+      "do_not_touch": [
+        "Section 1. Цель решения",
+        "Section 2. Scope"
+      ],
+      "acceptance_signal": "IO-body contract is covered by a falsifiable scenario and a matching AC that verifies the same object is passed to client without early read."
+    },
+    {
+      "dimension_id": "precondition_hygiene",
+      "current_score": 3,
+      "target_score": 5,
+      "change_scope": [
+        "Section 2.1 Preconditions",
+        "Section 3. Функциональные требования",
+        "Section 6. Ограничения на реализацию и Grounding"
+      ],
+      "do_not_touch": [
+        "Section 5. Инварианты"
+      ],
+      "acceptance_signal": "External S3_* runtime prerequisites are separated into Preconditions with an explicit stop condition instead of being embedded as ordinary implementation scope."
+    },
+    {
+      "dimension_id": "grounding_realism",
+      "current_score": 3,
+      "target_score": 5,
+      "change_scope": [
+        "Section 2.1 Preconditions",
+        "Section 6. Ограничения на реализацию и Grounding",
+        "Section 7. Acceptance Criteria"
+      ],
+      "do_not_touch": [
+        "Section 4. Сценарии ошибок и состояния"
+      ],
+      "acceptance_signal": "All implementation commitments are anchored to existing repo files, while runtime-only wiring remains explicit and out of the locally verifiable scope."
+    }
+  ],
+  "global_constraints": [
+    "Do not expand scope beyond one storage adapter feature.",
+    "Do not rewrite already-passing sections without evidence.",
+    "Keep the design outside core/lib because core/README states the core slice should not gain direct S3 dependency."
+  ]
+}

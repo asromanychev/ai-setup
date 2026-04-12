@@ -1,0 +1,74 @@
+{
+  "artifact": "code",
+  "artifact_version": "implementation-v1",
+  "review_file": "code-review-1.md",
+  "rubric_file": "code-rubric.json",
+  "dimensions": [
+    {
+      "id": "scope_compliance",
+      "score": 5,
+      "weight": 0.25,
+      "confidence": 0.98,
+      "blocker": false,
+      "evidence": [
+        "Exactly 3 files created per allowlist: migration, model, spec.",
+        "No changes to source.rb, sync_checkpoint.rb, rails_helper.rb, or any other file."
+      ],
+      "fix_expectation": "None."
+    },
+    {
+      "id": "invariant_preservation",
+      "score": 5,
+      "weight": 0.20,
+      "confidence": 0.95,
+      "blocker": false,
+      "evidence": [
+        "I1: unique index + skip-on-conflict.",
+        "I2: nil→{} normalization before insert.",
+        "I3: existing models unchanged.",
+        "I4: 45 existing examples pass."
+      ],
+      "fix_expectation": "None."
+    },
+    {
+      "id": "test_adequacy",
+      "score": 5,
+      "weight": 0.25,
+      "confidence": 0.95,
+      "blocker": false,
+      "evidence": [
+        "AC1-AC9 all mapped to tests.",
+        "Adversarial: aliasing (AC6), direct duplicate INSERT (AC9), nil/empty external_id (AC4).",
+        "10 examples, 0 failures."
+      ],
+      "fix_expectation": "None."
+    },
+    {
+      "id": "runtime_readiness",
+      "score": 5,
+      "weight": 0.20,
+      "confidence": 0.98,
+      "blocker": false,
+      "evidence": [
+        "Focused verification passed: 10 examples, 0 failures.",
+        "Regression gate passed: 45 examples, 0 failures.",
+        "Migration applied cleanly to test DB."
+      ],
+      "fix_expectation": "None."
+    },
+    {
+      "id": "regression_risk",
+      "score": 5,
+      "weight": 0.10,
+      "confidence": 0.98,
+      "blocker": false,
+      "evidence": [
+        "bundle exec rspec spec/models/source_spec.rb spec/models/sync_checkpoint_spec.rb: 45 examples, 0 failures."
+      ],
+      "fix_expectation": "None."
+    }
+  ],
+  "critical_risks": [],
+  "weighted_score": 5.0,
+  "verdict": "ready_for_activation"
+}

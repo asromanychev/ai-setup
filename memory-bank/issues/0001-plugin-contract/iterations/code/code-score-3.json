@@ -1,0 +1,79 @@
+{
+  "artifact": "code",
+  "artifact_version": "diff at commit cde0fa0 (pre-collection-task branch)",
+  "review_file": "code-review-3.md",
+  "rubric_file": "code-rubric.json",
+  "dimensions": [
+    {
+      "id": "spec_coverage",
+      "score": 5,
+      "weight": 0.30,
+      "confidence": 0.88,
+      "blocker": false,
+      "evidence": [
+        "Все 20 AC из spec.md трассированы до конкретных строк: plugin.rb:16-97, null_plugin.rb:7-39, plugin_registry.rb:10-37",
+        "Edge cases checkpoint_in: nil/{}/{cursor:abc}/{cursor:-1} реализованы в null_plugin.rb:21-29",
+        "Edge cases source_config[:records] реализованы в null_plugin.rb:7-12",
+        "Adversarial тесты: mutable keys, aliasing — покрыты в plugin_contract_spec.rb:142-200"
+      ],
+      "fix_expectation": "n/a — готов по статическому анализу"
+    },
+    {
+      "id": "contract_compliance",
+      "score": 5,
+      "weight": 0.25,
+      "confidence": 0.88,
+      "blocker": false,
+      "evidence": [
+        "Инвариант иммутабельности входов: deep_dup + deep_freeze для source_config (plugin.rb:16-22) и checkpoint_in (plugin.rb:24-29)",
+        "Инвариант иммутабельности выхода: validate_result! возвращает frozen Hash с frozen records и checkpoint_out (plugin.rb:47-67)",
+        "Детерминизм NullPlugin: cursor.zero? ветка возвращает batch, иначе [] (null_plugin.rb:31-37)",
+        "Изоляция: нет зависимостей от ActiveRecord/Redis/Telegram в core/lib/"
+      ],
+      "fix_expectation": "n/a — готов по статическому анализу"
+    },
+    {
+      "id": "scope_discipline",
+      "score": 5,
+      "weight": 0.20,
+      "confidence": 0.95,
+      "blocker": false,
+      "evidence": [
+        "Изменены только файлы из allowlist plan.md: plugin.rb, null_plugin.rb, plugin_registry_spec.rb, plugin_contract_spec.rb, null_plugin_spec.rb, registry_null_plugin_integration_spec.rb",
+        "Никаких изменений в app/, db/, config/ или других файлах за пределами core/"
+      ],
+      "fix_expectation": "n/a — готов"
+    },
+    {
+      "id": "test_quality",
+      "score": 5,
+      "weight": 0.15,
+      "confidence": 0.88,
+      "blocker": false,
+      "evidence": [
+        "plugin_contract_spec.rb покрывает override обязательности, иммутабельность, неполный результат",
+        "null_plugin_spec.rb покрывает все edge cases из spec.md Uniform-таблицы",
+        "registry_null_plugin_integration_spec.rb подтверждает end-to-end сценарий без внешних зависимостей",
+        "Adversarial тест на мутабельные ключи Hash добавлен после замечания в spec-review"
+      ],
+      "fix_expectation": "n/a — готов"
+    },
+    {
+      "id": "runtime_gate",
+      "score": 3,
+      "weight": 0.10,
+      "confidence": 0.88,
+      "blocker": false,
+      "evidence": [
+        "Runtime не запускался в рамках ревью — вердикт code-review-3: Неэквивалентно (runtime_unknown)",
+        "По static analysis все AC выглядят реализованными (confidence 0.88)",
+        "Фактический результат после запуска: 40 тестов, 0 failures (зафиксировано в hw-report)"
+      ],
+      "fix_expectation": "n/a — runtime результат известен из hw-report: 40 examples, 0 failures, coverage >80%"
+    }
+  ],
+  "critical_risks": [],
+  "weighted_score": 4.75,
+  "verdict": "runtime_unknown",
+  "_note": "Вердикт runtime_unknown на момент ревью (static analysis only). Фактический runtime: bundle exec rspec spec/core/collect/ — 40 examples, 0 failures, coverage threshold пройден. Зафиксировано в hw-reports/report.md."
+}

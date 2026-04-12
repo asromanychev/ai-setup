@@ -1,0 +1,56 @@
+{
+  "artifact": "plan",
+  "artifact_version": "plan-v1.md",
+  "review_file": "plan-review-1.md",
+  "rubric_file": "plan-rubric.json",
+  "dimensions": [
+    {
+      "id": "dependency_order",
+      "score": 5,
+      "weight": 0.20,
+      "confidence": 0.95,
+      "blocker": false,
+      "evidence": ["Граф errors→client→spec→staged→focused→regression корректен"],
+      "fix_expectation": "N/A"
+    },
+    {
+      "id": "step_atomicity",
+      "score": 5,
+      "weight": 0.20,
+      "confidence": 0.95,
+      "blocker": false,
+      "evidence": ["Каждый шаг = один файл; откат описан"],
+      "fix_expectation": "N/A"
+    },
+    {
+      "id": "delta_specificity",
+      "score": 5,
+      "weight": 0.25,
+      "confidence": 0.95,
+      "blocker": false,
+      "evidence": ["Тройка what-exists/missing/forbidden для каждого редактируемого файла"],
+      "fix_expectation": "N/A"
+    },
+    {
+      "id": "runtime_gate_quality",
+      "score": 5,
+      "weight": 0.20,
+      "confidence": 0.95,
+      "blocker": false,
+      "evidence": ["Two-tier: Шаг 5 focused, Шаг 6 regression; оба с командами и pass/fail signal"],
+      "fix_expectation": "N/A"
+    },
+    {
+      "id": "test_materialization",
+      "score": 4,
+      "weight": 0.15,
+      "confidence": 0.90,
+      "blocker": false,
+      "evidence": ["Таблица AC→test есть; sleep в retry loop не описан в контексте test speed"],
+      "fix_expectation": "Добавить retry_delay: параметр в конструктор; описать в Шаге 3 как передавать retry_delay: 0 в тестах"
+    }
+  ],
+  "critical_risks": [],
+  "weighted_score": 4.85,
+  "verdict": "rework_required"
+}

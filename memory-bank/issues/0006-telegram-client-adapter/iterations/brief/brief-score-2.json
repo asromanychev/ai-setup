@@ -1,0 +1,56 @@
+{
+  "artifact": "brief",
+  "artifact_version": "brief-v2.md",
+  "review_file": "brief-review-2.md",
+  "rubric_file": "brief-rubric.json",
+  "dimensions": [
+    {
+      "id": "problem_clarity",
+      "score": 5,
+      "weight": 0.25,
+      "confidence": 0.95,
+      "blocker": false,
+      "evidence": ["Симптом конкретен: 'нет ни класса, ни интерфейса'"],
+      "fix_expectation": "N/A"
+    },
+    {
+      "id": "stakeholder_specificity",
+      "score": 5,
+      "weight": 0.15,
+      "confidence": 0.95,
+      "blocker": false,
+      "evidence": ["'Разработчик ядра и плагина'; мотивация явна"],
+      "fix_expectation": "N/A"
+    },
+    {
+      "id": "problem_solution_separation",
+      "score": 5,
+      "weight": 0.25,
+      "confidence": 0.95,
+      "blocker": false,
+      "evidence": ["VCR/WebMock убраны; только 'заглушки HTTP-ответов'"],
+      "fix_expectation": "N/A"
+    },
+    {
+      "id": "success_criteria_observability",
+      "score": 5,
+      "weight": 0.20,
+      "confidence": 0.95,
+      "blocker": false,
+      "evidence": ["Критерий 3 уточнён: 'ошибку с семантикой rate limit exceeded'; нет нераскрытых альтернатив"],
+      "fix_expectation": "N/A"
+    },
+    {
+      "id": "scope_boundary_integrity",
+      "score": 5,
+      "weight": 0.15,
+      "confidence": 0.95,
+      "blocker": false,
+      "evidence": ["6 явных пунктов исключений; ни один не блокирует критерии успеха"],
+      "fix_expectation": "N/A"
+    }
+  ],
+  "critical_risks": [],
+  "weighted_score": 5.0,
+  "verdict": "ready_for_activation"
+}

@@ -1,0 +1,67 @@
+{
+  "artifact": "plan",
+  "artifact_version": "plan-v1.md",
+  "review_file": "plan-review-1.md",
+  "rubric_file": "plan-rubric.json",
+  "dimensions": [
+    {
+      "id": "dependency_order",
+      "score": 4,
+      "weight": 0.2,
+      "confidence": 0.9,
+      "blocker": false,
+      "evidence": [
+        "Observational grounding precedes code edits, and tests follow implementation."
+      ],
+      "fix_expectation": "No structural reorder required unless new runtime-prerequisite steps are introduced."
+    },
+    {
+      "id": "step_atomicity",
+      "score": 4,
+      "weight": 0.2,
+      "confidence": 0.88,
+      "blocker": false,
+      "evidence": [
+        "Implementation and test creation are split into separate steps and the last step is still verification-only."
+      ],
+      "fix_expectation": "Keep verification steps separate if additional regression checks are added."
+    },
+    {
+      "id": "delta_specificity",
+      "score": 4,
+      "weight": 0.2,
+      "confidence": 0.87,
+      "blocker": false,
+      "evidence": [
+        "Edit steps describe current repo state, missing spec delta, and do-not-touch boundaries."
+      ],
+      "fix_expectation": "Retain current delta language while adding missing runtime-gate details."
+    },
+    {
+      "id": "runtime_gate_quality",
+      "score": 3,
+      "weight": 0.2,
+      "confidence": 0.93,
+      "blocker": false,
+      "evidence": [
+        "The final gate runs only the new service spec and does not verify the existing suite remains green.",
+        "No command explicitly materializes the 'no AWS secrets / no live S3' runtime expectation."
+      ],
+      "fix_expectation": "Add explicit env-stripped verification and a regression gate that checks existing tests as well as the new service spec."
+    },
+    {
+      "id": "test_materialization",
+      "score": 3,
+      "weight": 0.2,
+      "confidence": 0.91,
+      "blocker": false,
+      "evidence": [
+        "Core constructor/store behaviors are mapped to tests, but the runtime prerequisite about secret-free local execution is still declarative."
+      ],
+      "fix_expectation": "Turn the no-secrets/no-live-S3 requirement into an executable verification step with a measurable pass/fail signal."
+    }
+  ],
+  "critical_risks": [],
+  "weighted_score": 3.6,
+  "verdict": "rework_required"
+}

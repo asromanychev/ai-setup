@@ -1,0 +1,25 @@
+{
+  "artifact": "spec",
+  "from_version": "spec-v1.md",
+  "to_version": "spec-v2.md",
+  "review_source": "spec-review-1.md",
+  "score_source": "spec-score-1.json",
+  "fixes": [
+    {
+      "dimension": "testability",
+      "current_score": 4,
+      "target_score": 5,
+      "change_scope": "Добавить AC-15 (TimeoutError), AC-16 (stateless repeat call), убрать инвариант 4 как обязательный AC и пометить 'enforced by code review'",
+      "do_not_touch": "FR-1 — FR-9, таблица состояний, Adversarial edge cases, Invariants 1-3",
+      "acceptance_signal": "Каждый инвариант имеет falsifiable AC; TimeoutError присутствует в AC"
+    },
+    {
+      "dimension": "state_uniformity",
+      "current_score": 4,
+      "target_score": 5,
+      "change_scope": "Материализовать инварианты 3 в AC-16; инвариант 4 — пометить как 'enforced by code review' в тексте инварианта",
+      "do_not_touch": "Таблица состояний (уже полная), adversarial edge cases",
+      "acceptance_signal": "Все инварианты либо имеют AC, либо явно помечены как 'not automated'"
+    }
+  ]
+}

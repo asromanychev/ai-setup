@@ -1,0 +1,66 @@
+{
+  "artifact": "plan",
+  "artifact_version": "plan-v2.md",
+  "review_file": "plan-review-2.md",
+  "rubric_file": "plan-rubric.json",
+  "dimensions": [
+    {
+      "id": "dependency_order",
+      "score": 5,
+      "weight": 0.2,
+      "confidence": 0.95,
+      "blocker": false,
+      "evidence": [
+        "Prerequisite checks precede implementation, service creation precedes specs, and focused verification precedes the final regression gate."
+      ],
+      "fix_expectation": "None."
+    },
+    {
+      "id": "step_atomicity",
+      "score": 5,
+      "weight": 0.2,
+      "confidence": 0.94,
+      "blocker": false,
+      "evidence": [
+        "Each step is independently executable, and the final step is verification-only."
+      ],
+      "fix_expectation": "None."
+    },
+    {
+      "id": "delta_specificity",
+      "score": 5,
+      "weight": 0.2,
+      "confidence": 0.93,
+      "blocker": false,
+      "evidence": [
+        "Edit steps explicitly describe current repo state, missing spec delta, and do-not-touch boundaries."
+      ],
+      "fix_expectation": "None."
+    },
+    {
+      "id": "runtime_gate_quality",
+      "score": 5,
+      "weight": 0.2,
+      "confidence": 0.96,
+      "blocker": false,
+      "evidence": [
+        "The last step is a pure runtime gate with an explicit env-stripped command covering both the new service spec and the existing regression suite."
+      ],
+      "fix_expectation": "None."
+    },
+    {
+      "id": "test_materialization",
+      "score": 5,
+      "weight": 0.2,
+      "confidence": 0.95,
+      "blocker": false,
+      "evidence": [
+        "All acceptance criteria and the secret-free/no-live-S3 prerequisite are turned into executable verification steps."
+      ],
+      "fix_expectation": "None."
+    }
+  ],
+  "critical_risks": [],
+  "weighted_score": 5.0,
+  "verdict": "ready_for_activation"
+}

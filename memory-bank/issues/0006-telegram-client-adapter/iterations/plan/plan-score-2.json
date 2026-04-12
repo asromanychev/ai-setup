@@ -1,0 +1,56 @@
+{
+  "artifact": "plan",
+  "artifact_version": "plan-v2.md",
+  "review_file": "plan-review-2.md",
+  "rubric_file": "plan-rubric.json",
+  "dimensions": [
+    {
+      "id": "dependency_order",
+      "score": 5,
+      "weight": 0.20,
+      "confidence": 0.95,
+      "blocker": false,
+      "evidence": ["Граф без изменений от v1 — корректен"],
+      "fix_expectation": "N/A"
+    },
+    {
+      "id": "step_atomicity",
+      "score": 5,
+      "weight": 0.20,
+      "confidence": 0.95,
+      "blocker": false,
+      "evidence": ["Без изменений от v1"],
+      "fix_expectation": "N/A"
+    },
+    {
+      "id": "delta_specificity",
+      "score": 5,
+      "weight": 0.25,
+      "confidence": 0.95,
+      "blocker": false,
+      "evidence": ["Без изменений от v1"],
+      "fix_expectation": "N/A"
+    },
+    {
+      "id": "runtime_gate_quality",
+      "score": 5,
+      "weight": 0.20,
+      "confidence": 0.95,
+      "blocker": false,
+      "evidence": ["Без изменений от v1"],
+      "fix_expectation": "N/A"
+    },
+    {
+      "id": "test_materialization",
+      "score": 5,
+      "weight": 0.15,
+      "confidence": 0.95,
+      "blocker": false,
+      "evidence": ["retry_delay: 0 задокументирован в Шаге 3; объяснено почему нужен (2 sleep × 1 сек без него)"],
+      "fix_expectation": "N/A"
+    }
+  ],
+  "critical_risks": [],
+  "weighted_score": 5.0,
+  "verdict": "ready_for_activation"
+}

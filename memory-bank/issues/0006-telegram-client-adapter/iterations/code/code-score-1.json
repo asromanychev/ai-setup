@@ -1,0 +1,74 @@
+{
+  "artifact": "code",
+  "artifact_version": "v1",
+  "review_file": "code-review-1.md",
+  "rubric_file": "code-rubric.json",
+  "dimensions": [
+    {
+      "id": "spec_equivalence",
+      "score": 5,
+      "weight": 0.30,
+      "confidence": 0.97,
+      "blocker": false,
+      "evidence": [
+        "Все 16 AC реализованы; нет доказуемых контрпримеров",
+        "Runtime-confirmed: 19 focused + 132 regression examples, 0 failures"
+      ],
+      "fix_expectation": "N/A"
+    },
+    {
+      "id": "invariant_integrity",
+      "score": 5,
+      "weight": 0.25,
+      "confidence": 0.97,
+      "blocker": false,
+      "evidence": [
+        "No AR imports or calls",
+        "build_dto returns .freeze; deep_freeze(deep_dup(post)) для raw",
+        "Stateless: только readonly @-переменные после initialize",
+        "No Rails.logger calls"
+      ],
+      "fix_expectation": "N/A"
+    },
+    {
+      "id": "scope_compliance",
+      "score": 5,
+      "weight": 0.20,
+      "confidence": 1.0,
+      "blocker": false,
+      "evidence": [
+        "Только 3 файла из allowlist; Gemfile, core/lib, app/models не изменены"
+      ],
+      "fix_expectation": "N/A"
+    },
+    {
+      "id": "test_coverage_quality",
+      "score": 5,
+      "weight": 0.15,
+      "confidence": 0.97,
+      "blocker": false,
+      "evidence": [
+        "19 examples покрывают все 16 AC + bonus 5xx",
+        "stub_http_class без реальных HTTP-запросов",
+        "retry_delay: 0 используется в retry-тестах"
+      ],
+      "fix_expectation": "N/A"
+    },
+    {
+      "id": "code_style",
+      "score": 4,
+      "weight": 0.10,
+      "confidence": 0.90,
+      "blocker": false,
+      "evidence": [
+        "frozen_string_literal присутствует во всех файлах",
+        "Константы именованы (MAX_RETRIES, OPEN_TIMEOUT и т.д.)",
+        "deep_freeze/deep_dup дублируют core — технический долг, не дефект"
+      ],
+      "fix_expectation": "N/A (score 4 выше gate 2)"
+    }
+  ],
+  "critical_risks": [],
+  "weighted_score": 4.90,
+  "verdict": "ready_for_activation"
+}

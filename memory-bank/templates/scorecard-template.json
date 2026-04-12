@@ -1,0 +1,24 @@
+{
+  "artifact": "brief|spec|plan|code",
+  "artifact_version": "brief-v1.md",
+  "review_file": "brief-review-1.md",
+  "rubric_file": "brief-rubric.json",
+  "dimensions": [
+    {
+      "id": "dimension_id",
+      "score": 1,
+      "weight": 0.2,
+      "confidence": 0.0,
+      "blocker": true,
+      "evidence": [
+        "Concrete quote or factual observation"
+      ],
+      "fix_expectation": "Smallest acceptable repair that raises this dimension"
+    }
+  ],
+  "critical_risks": [
+    "dimension_id"
+  ],
+  "weighted_score": 0.0,
+  "verdict": "rework_required|ready_for_activation|runtime_unknown"
+}

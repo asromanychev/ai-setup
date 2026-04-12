@@ -1,0 +1,62 @@
+{
+  "artifact": "spec",
+  "version": "v1",
+  "scale": {
+    "min": 1,
+    "max": 5,
+    "anchor_levels": [1, 3, 5]
+  },
+  "weights_sum_must_equal": 1.0,
+  "dimensions": [
+    {
+      "id": "testability",
+      "name": "Тестируемость",
+      "weight": 0.25,
+      "evaluation_mode": "isolated",
+      "blocker_if_score_lte": 2,
+      "level_1": "AC отсутствуют или нельзя написать автотест без доступа к реальной сети / внешнему API",
+      "level_3": "AC есть, но часть из них неверифицируема или требует реальных credentials",
+      "level_5": "Каждый AC — поведенческое утверждение, которое можно проверить через stub-транспорт без реальной сети; есть adversarial AC для каждого инварианта"
+    },
+    {
+      "id": "ambiguity_free",
+      "name": "Однозначность",
+      "weight": 0.20,
+      "evaluation_mode": "isolated",
+      "blocker_if_score_lte": 2,
+      "level_1": "Слова-паразиты ('быстро', 'удобно', 'при необходимости') в FR или AC; нераскрытые альтернативы 'A или B'",
+      "level_3": "Основные требования однозначны, единичные расплывчатые формулировки в edge cases",
+      "level_5": "Ни одного неоднозначного слова; все числа и пороги явны; семантика каждого поведения зафиксирована"
+    },
+    {
+      "id": "state_uniformity",
+      "name": "Полнота состояний",
+      "weight": 0.20,
+      "evaluation_mode": "isolated",
+      "blocker_if_score_lte": 2,
+      "level_1": "Описан только happy path; error/empty/edge cases отсутствуют",
+      "level_3": "Описаны основные error cases, но отдельные состояния (пустой ответ API, nil cursor) не охвачены",
+      "level_5": "Все релевантные состояния описаны: success, empty, rate-limit, transient error, invalid input, конец пагинации; состояние 'loading' явно признано неприменимым"
+    },
+    {
+      "id": "precondition_hygiene",
+      "name": "Чистота предусловий",
+      "weight": 0.20,
+      "evaluation_mode": "isolated",
+      "blocker_if_score_lte": 2,
+      "level_1": "Spec зависит от внешних gem/инфраструктуры, которых нет в проекте, без явного указания в Preconditions",
+      "level_3": "Preconditions перечислены, но не все materialized-check проведены",
+      "level_5": "Каждый внешний prerequisite либо подтверждён как существующий (stdlib, уже в Gemfile), либо явно выведен в Preconditions с stop condition"
+    },
+    {
+      "id": "grounding_realism",
+      "name": "Реализуемость в текущей архитектуре",
+      "weight": 0.15,
+      "evaluation_mode": "isolated",
+      "blocker_if_score_lte": 2,
+      "level_1": "Spec предполагает несуществующие файлы, gem-зависимости или инфраструктуру без grounding-check",
+      "level_3": "Основные пути grounded, единичные ссылки на несуществующие компоненты",
+      "level_5": "Все упомянутые файлы существуют или явно создаются в этой задаче; все gem-зависимости в Gemfile или stdlib; паттерны соответствуют конвенциям проекта"
+    }
+  ]
+}

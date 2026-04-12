@@ -1,0 +1,40 @@
+1. Предпосылки:
+   Review covers the current working tree versions of `app/services/collect/blob_storage.rb`, `spec/services/collect/blob_storage_spec.rb`, and `iterations/code/code-rubric.json`.
+   Allowlist from `plan.md` is respected: only [app/services/collect/blob_storage.rb](/home/aromanychev/edu/aida/ai-da-collect/app/services/collect/blob_storage.rb), [spec/services/collect/blob_storage_spec.rb](/home/aromanychev/edu/aida/ai-da-collect/spec/services/collect/blob_storage_spec.rb), and `iterations/code/*` artifacts were added.
+   `scope-and-runtime context`: no `scope breach` was found in the reviewed files; full Rails/model regression remains unconfirmed because [spec/rails_helper.rb:12](/home/aromanychev/edu/aida/ai-da-collect/spec/rails_helper.rb#L12) raises `ActiveRecord::ConnectionNotEstablished` before examples load when the local PostgreSQL test DB is unavailable.
+   Review is therefore valid for code equivalence and local pure-service proofs, but not for the DB-backed regression gate from `plan.md`.
+
+2. Инварианты и контракты:
+   `provable defect`: none.
+   `scope breach`: none.
+   `runtime-unknown gate`: DB-backed suites cannot currently materialize because [spec/rails_helper.rb:12](/home/aromanychev/edu/aida/ai-da-collect/spec/rails_helper.rb#L12) calls `ActiveRecord::Migration.maintain_test_schema!`, and the observed local runs of `spec/models/source_spec.rb` and `spec/models/sync_checkpoint_spec.rb` fail before examples load.
+   Constructor validation from the spec is preserved at [app/services/collect/blob_storage.rb:6](/home/aromanychev/edu/aida/ai-da-collect/app/services/collect/blob_storage.rb#L6) through [app/services/collect/blob_storage.rb:12](/home/aromanychev/edu/aida/ai-da-collect/app/services/collect/blob_storage.rb#L12): invalid `bucket` and `nil` `client` both raise the exact required `ArgumentError`.
+   The main contract of `#store` is preserved at [app/services/collect/blob_storage.rb:14](/home/aromanychev/edu/aida/ai-da-collect/app/services/collect/blob_storage.rb#L14) through [app/services/collect/blob_storage.rb:30](/home/aromanychev/edu/aida/ai-da-collect/app/services/collect/blob_storage.rb#L30): validated inputs, one `put_object` call, optional fields only when present, return of the original `key`, and exception pass-through.
+   The metadata isolation invariant is materially enforced by copying metadata before upload at [app/services/collect/blob_storage.rb:27](/home/aromanychev/edu/aida/ai-da-collect/app/services/collect/blob_storage.rb#L27) and recursively duplicating nested Hash/Array members at [app/services/collect/blob_storage.rb:39](/home/aromanychev/edu/aida/ai-da-collect/app/services/collect/blob_storage.rb#L39) through [app/services/collect/blob_storage.rb:52](/home/aromanychev/edu/aida/ai-da-collect/app/services/collect/blob_storage.rb#L52).
+   The non-normalization and non-caching invariants are preserved because the method forwards `key` unchanged at [app/services/collect/blob_storage.rb:23](/home/aromanychev/edu/aida/ai-da-collect/app/services/collect/blob_storage.rb#L23) and performs no memoization between calls anywhere in the class.
+
+3. Трассировка путей выполнения:
+   Happy-path: `#store` builds a payload with required fields at [app/services/collect/blob_storage.rb:21](/home/aromanychev/edu/aida/ai-da-collect/app/services/collect/blob_storage.rb#L21) through [app/services/collect/blob_storage.rb:29](/home/aromanychev/edu/aida/ai-da-collect/app/services/collect/blob_storage.rb#L29), sends it once, and returns the same key at [app/services/collect/blob_storage.rb:30](/home/aromanychev/edu/aida/ai-da-collect/app/services/collect/blob_storage.rb#L30). This is exercised by [spec/services/collect/blob_storage_spec.rb:40](/home/aromanychev/edu/aida/ai-da-collect/spec/services/collect/blob_storage_spec.rb#L40) through [spec/services/collect/blob_storage_spec.rb:67](/home/aromanychev/edu/aida/ai-da-collect/spec/services/collect/blob_storage_spec.rb#L67).
+   Error-paths: constructor and store validation branches are directly covered by [spec/services/collect/blob_storage_spec.rb:14](/home/aromanychev/edu/aida/ai-da-collect/spec/services/collect/blob_storage_spec.rb#L14) through [spec/services/collect/blob_storage_spec.rb:109](/home/aromanychev/edu/aida/ai-da-collect/spec/services/collect/blob_storage_spec.rb#L109).
+   IO pass-through: the implementation only checks `respond_to?(:read)` at [app/services/collect/blob_storage.rb:17](/home/aromanychev/edu/aida/ai-da-collect/app/services/collect/blob_storage.rb#L17) and forwards `body` unchanged at [app/services/collect/blob_storage.rb:24](/home/aromanychev/edu/aida/ai-da-collect/app/services/collect/blob_storage.rb#L24); the adversarial expectation that `read` is not called is present at [spec/services/collect/blob_storage_spec.rb:112](/home/aromanychev/edu/aida/ai-da-collect/spec/services/collect/blob_storage_spec.rb#L112) through [spec/services/collect/blob_storage_spec.rb:123](/home/aromanychev/edu/aida/ai-da-collect/spec/services/collect/blob_storage_spec.rb#L123).
+   Repeated-call path: no cache layer exists, and two ordered uploads for the same key are asserted at [spec/services/collect/blob_storage_spec.rb:136](/home/aromanychev/edu/aida/ai-da-collect/spec/services/collect/blob_storage_spec.rb#L136) through [spec/services/collect/blob_storage_spec.rb:149](/home/aromanychev/edu/aida/ai-da-collect/spec/services/collect/blob_storage_spec.rb#L149).
+   Metadata aliasing path: copied metadata is observed independently of later mutations by [spec/services/collect/blob_storage_spec.rb:151](/home/aromanychev/edu/aida/ai-da-collect/spec/services/collect/blob_storage_spec.rb#L151) through [spec/services/collect/blob_storage_spec.rb:169](/home/aromanychev/edu/aida/ai-da-collect/spec/services/collect/blob_storage_spec.rb#L169).
+
+4. Риски и регрессии:
+   low, `runtime-unknown gate`: the final regression gate from `plan.md` is still unproven because DB-backed specs fail before loading via [spec/rails_helper.rb:12](/home/aromanychev/edu/aida/ai-da-collect/spec/rails_helper.rb#L12). This is real because the observed command `bundle exec rspec spec/models/source_spec.rb spec/models/sync_checkpoint_spec.rb spec/core/collect` exits with `ActiveRecord::ConnectionNotEstablished`, so existing green status for model specs is not materially re-confirmed in the current environment.
+
+5. Вердикт по эквивалентности:
+   Эквивалентно.
+   No code-level counterexample against the acceptance criteria was found in the reviewed implementation. The remaining uncertainty is execution-only and belongs to `runtime-unknown gate`, not to a provable logic defect.
+
+6. Что проверить тестами:
+   Re-run `bundle exec rspec spec/services/collect/blob_storage_spec.rb spec/models/source_spec.rb spec/models/sync_checkpoint_spec.rb spec/core/collect` once the local PostgreSQL test DB is available.
+   Confirm that [spec/services/collect/blob_storage_spec.rb](/home/aromanychev/edu/aida/ai-da-collect/spec/services/collect/blob_storage_spec.rb) stays green under the project’s intended CI/runtime boot path, not only under the local pure-service path.
+   Keep the adversarial metadata aliasing case from [spec/services/collect/blob_storage_spec.rb:151](/home/aromanychev/edu/aida/ai-da-collect/spec/services/collect/blob_storage_spec.rb#L151) active because it is the minimal test that catches broken copy semantics.
+   Keep the IO pass-through case from [spec/services/collect/blob_storage_spec.rb:112](/home/aromanychev/edu/aida/ai-da-collect/spec/services/collect/blob_storage_spec.rb#L112) active because it is the minimal test that catches a premature `read`.
+   Re-run the no-secret smoke path with `AWS_*` unset to preserve the spec invariant that validation and upload orchestration do not depend on live S3 credentials.
+
+7. Confidence:
+   0.88. Confidence is below 1.0 only because the DB-backed regression gate is not materialized in the current local environment; the pure service contract itself has both code-level and executable evidence.
+
+0 замечаний

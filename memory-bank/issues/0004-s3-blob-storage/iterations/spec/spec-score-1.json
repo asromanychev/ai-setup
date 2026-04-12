@@ -1,0 +1,66 @@
+{
+  "artifact": "spec",
+  "artifact_version": "spec-v1.md",
+  "review_file": "spec-review-1.md",
+  "rubric_file": "spec-rubric.json",
+  "dimensions": [
+    {
+      "id": "testability",
+      "score": 4,
+      "weight": 0.2,
+      "confidence": 0.88,
+      "blocker": false,
+      "evidence": [
+        "Most acceptance criteria are concrete and map directly to service-level tests."
+      ],
+      "fix_expectation": "Keep AC behavior-oriented and preserve direct testability."
+    },
+    {
+      "id": "ambiguity_free",
+      "score": 5,
+      "weight": 0.2,
+      "confidence": 0.91,
+      "blocker": false,
+      "evidence": [
+        "The document uses concrete types, error messages, and scope limits without vague qualifiers."
+      ],
+      "fix_expectation": "Do not reintroduce broad wording while repairing other sections."
+    },
+    {
+      "id": "state_uniformity",
+      "score": 3,
+      "weight": 0.2,
+      "confidence": 0.86,
+      "blocker": false,
+      "evidence": [
+        "The IO-body boundary case is described in prose but not materialized as an acceptance criterion."
+      ],
+      "fix_expectation": "Add an explicit falsifiable AC for the IO pass-through contract."
+    },
+    {
+      "id": "precondition_hygiene",
+      "score": 3,
+      "weight": 0.2,
+      "confidence": 0.89,
+      "blocker": false,
+      "evidence": [
+        "from_env depends on external S3_* runtime values, but the spec has no Preconditions section or stop condition."
+      ],
+      "fix_expectation": "Move external runtime prerequisites into a dedicated Preconditions section or remove them from scope."
+    },
+    {
+      "id": "grounding_realism",
+      "score": 3,
+      "weight": 0.2,
+      "confidence": 0.84,
+      "blocker": false,
+      "evidence": [
+        "The implementation is mostly grounded, but runtime wiring through from_env is weakly evidenced without explicit preconditions."
+      ],
+      "fix_expectation": "Align grounding with existing files and isolate external runtime wiring from the core implementation contract."
+    }
+  ],
+  "critical_risks": [],
+  "weighted_score": 3.6,
+  "verdict": "rework_required"
+}

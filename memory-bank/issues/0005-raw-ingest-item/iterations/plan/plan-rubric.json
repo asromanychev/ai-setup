@@ -1,0 +1,62 @@
+{
+  "artifact": "plan",
+  "version": "v1",
+  "scale": {
+    "min": 1,
+    "max": 5,
+    "anchor_levels": [1, 3, 5]
+  },
+  "weights_sum_must_equal": 1.0,
+  "dimensions": [
+    {
+      "id": "dependency_order",
+      "name": "Dependency Order",
+      "weight": 0.20,
+      "evaluation_mode": "isolated",
+      "blocker_if_score_lte": 2,
+      "level_1": "Steps are out of order; migration after model use, or tests before implementation.",
+      "level_3": "Order mostly correct but one or two steps could be parallelized or need swapping.",
+      "level_5": "Steps are in strict topological order. Every step's dependencies are satisfied by prior steps."
+    },
+    {
+      "id": "step_atomicity",
+      "name": "Step Atomicity",
+      "weight": 0.20,
+      "evaluation_mode": "isolated",
+      "blocker_if_score_lte": 2,
+      "level_1": "Steps are vague or bundle multiple files/concerns into one step.",
+      "level_3": "Steps are mostly atomic but one or two bundle multiple concerns.",
+      "level_5": "Each step touches exactly one file or one logical change. No bundling."
+    },
+    {
+      "id": "delta_specificity",
+      "name": "Delta Specificity",
+      "weight": 0.20,
+      "evaluation_mode": "isolated",
+      "blocker_if_score_lte": 2,
+      "level_1": "Steps describe end state only, no delta. 'Create X' without what exists now.",
+      "level_3": "Delta described for most steps but one or two miss the current state.",
+      "level_5": "Every step explicitly states: what exists now, what is missing per spec, what must not change."
+    },
+    {
+      "id": "runtime_gate_quality",
+      "name": "Runtime Gate Quality",
+      "weight": 0.25,
+      "evaluation_mode": "isolated",
+      "blocker_if_score_lte": 2,
+      "level_1": "No final runtime verification. Plan ends with code step.",
+      "level_3": "Final verification exists but is vague ('run tests') or missing observable signal.",
+      "level_5": "Two-tier gate: focused verification of new contract + separate regression gate with explicit commands and pass/fail signals."
+    },
+    {
+      "id": "test_materialization",
+      "name": "Test Materialization",
+      "weight": 0.15,
+      "evaluation_mode": "isolated",
+      "blocker_if_score_lte": 2,
+      "level_1": "No test step or tests are implied but not listed.",
+      "level_3": "Test step exists but without explicit AC mapping or test DB prerequisite.",
+      "level_5": "Test step maps each AC to test cases; prerequisite (test DB) materialized; command explicit."
+    }
+  ]
+}

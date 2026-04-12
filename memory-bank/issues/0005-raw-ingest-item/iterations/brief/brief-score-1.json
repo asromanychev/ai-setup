@@ -1,0 +1,73 @@
+{
+  "artifact": "brief",
+  "artifact_version": "brief-v1.md",
+  "review_file": "brief-review-1.md",
+  "rubric_file": "brief-rubric.json",
+  "dimensions": [
+    {
+      "id": "problem_clarity",
+      "score": 5,
+      "weight": 0.25,
+      "confidence": 0.95,
+      "blocker": false,
+      "evidence": [
+        "Three concrete observable symptoms listed: duplicate ingestion, no source/blob link, no recoverability on failure.",
+        "Observable symptom phrase: 'при повторном запуске система не может отличить новые объекты от уже собранных'"
+      ],
+      "fix_expectation": "None required."
+    },
+    {
+      "id": "stakeholder_specificity",
+      "score": 5,
+      "weight": 0.15,
+      "confidence": 0.95,
+      "blocker": false,
+      "evidence": [
+        "Stakeholder named as 'компонент оркестрации ingestion (sync-оркестратор, фоновые jobs)'",
+        "Motivation clearly tied to idempotent ingestion impossibility"
+      ],
+      "fix_expectation": "None required."
+    },
+    {
+      "id": "problem_solution_separation",
+      "score": 4,
+      "weight": 0.25,
+      "confidence": 0.85,
+      "blocker": false,
+      "evidence": [
+        "§4 mentions 'app/models/', 'db/migrate/', 'ActiveRecord' as technical context — borderline but acceptable as env constraints",
+        "No class names, column names, or schema structure proposed"
+      ],
+      "fix_expectation": "Minor: §4 file paths and 'ActiveRecord' are acceptable as architectural constraints describing current state, not solution design. No fix required unless reviewer deems it blocking."
+    },
+    {
+      "id": "success_criteria_observability",
+      "score": 3,
+      "weight": 0.20,
+      "confidence": 0.95,
+      "blocker": true,
+      "evidence": [
+        "Criterion 1: 'Поведение при дубле (перезапись или обновление полей или пропуск с логом) задокументировано и единообразно' — the semantics are left as an unresolved alternative, not a defined behavior.",
+        "This violates the Undefined-term gate: the term 'поведение при дубле' is not grounded in an observable outcome."
+      ],
+      "fix_expectation": "Either (a) pick one semantics — upsert-overwrite OR skip-with-log — and state it as the chosen behavior; or (b) move the choice to an explicit blocking open question before the document can be approved."
+    },
+    {
+      "id": "scope_boundary_integrity",
+      "score": 5,
+      "weight": 0.15,
+      "confidence": 0.95,
+      "blocker": false,
+      "evidence": [
+        "§7 lists 6 explicit exclusions",
+        "No exclusion conflicts with success criteria"
+      ],
+      "fix_expectation": "None required."
+    }
+  ],
+  "critical_risks": [
+    "success_criteria_observability"
+  ],
+  "weighted_score": 4.15,
+  "verdict": "rework_required"
+}

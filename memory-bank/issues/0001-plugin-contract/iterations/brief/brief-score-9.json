@@ -1,0 +1,75 @@
+{
+  "artifact": "brief",
+  "artifact_version": "brief-v9.md",
+  "review_file": "brief-review-9.md",
+  "rubric_file": "brief-rubric.json",
+  "dimensions": [
+    {
+      "id": "problem_clarity",
+      "score": 5,
+      "weight": 0.25,
+      "confidence": 0.95,
+      "blocker": false,
+      "evidence": [
+        "Problem описывает три конкретных наблюдаемых симптома без упоминания классов, методов или форматов данных",
+        "Симптомы: отсутствие стабильных тестов без внешних зависимостей, невозможность первого вертикального среза без сети/БД, неопределённое поведение для неизвестного plugin id",
+        "Ни один термин не уводит в Solution Space"
+      ],
+      "fix_expectation": "n/a — готов"
+    },
+    {
+      "id": "stakeholder_specificity",
+      "score": 5,
+      "weight": 0.15,
+      "confidence": 0.95,
+      "blocker": false,
+      "evidence": [
+        "Стейкхолдер назван конкретно: разработчик, строящий ядро ingestion и source plugins",
+        "Боль сформулирована через наблюдаемые последствия: нестабильные тесты, зависимость от Telegram/сети/БД",
+        "Приоритет обоснован: первый шаг бэклога, без него последующие задачи разойдутся по интерфейсам"
+      ],
+      "fix_expectation": "n/a — готов"
+    },
+    {
+      "id": "problem_solution_separation",
+      "score": 5,
+      "weight": 0.30,
+      "confidence": 0.95,
+      "blocker": false,
+      "evidence": [
+        "Разделы Problem, Для кого и Критерий успеха свободны от Solution Space",
+        "Критерий успеха описывает поведение (два сценария без внешних зависимостей), не реализацию",
+        "Сравнение с v8: удалена формулировка про конкретный тип возврата nil/ошибка из SC"
+      ],
+      "fix_expectation": "n/a — готов"
+    },
+    {
+      "id": "scope_definition",
+      "score": 5,
+      "weight": 0.15,
+      "confidence": 0.90,
+      "blocker": false,
+      "evidence": [
+        "Out of Scope явно перечисляет: Telegram API, PostgreSQL модели, S3, Sidekiq, сериализацию checkpoint, более одного плагина",
+        "Каждое исключение согласовано с Problem: эти компоненты не нужны для устранения описанных симптомов"
+      ],
+      "fix_expectation": "n/a — готов"
+    },
+    {
+      "id": "success_criteria",
+      "score": 5,
+      "weight": 0.15,
+      "confidence": 0.95,
+      "blocker": false,
+      "evidence": [
+        "Критерий описывает два наблюдаемых поведения: один шаг синка без внешних зависимостей, детерминированный результат для неизвестного plugin id",
+        "Оба проверяемы автоматически в CI без Telegram, сети и БД",
+        "Нет технических деталей о форматах, типах или именах классов"
+      ],
+      "fix_expectation": "n/a — готов"
+    }
+  ],
+  "critical_risks": [],
+  "weighted_score": 5.0,
+  "verdict": "ready_for_activation"
+}
