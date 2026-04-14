@@ -1,0 +1,10 @@
+{
+  "stage": "spec",
+  "dimensions": [
+    "requirements_clarity",
+    "testability",
+    "grounding",
+    "scope_control",
+    "operational_fit"
+  ]
+}

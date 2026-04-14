@@ -8,7 +8,7 @@ derived_from:
   - memory-bank/index.md
   - memory-bank/progress.md
 status: active
-last_updated: 2026-04-12
+last_updated: 2026-04-14
 audience: humans_and_agents
 ---
 
@@ -46,13 +46,19 @@ audience: humans_and_agents
   │     └─→ #20 Tasks API CRUD + lifecycle       [critical]
   │           ├─→ #21 Items cursor pagination    [high]
   │           └─→ #22 Webhook mode               [high]
-  ├─→ #7  Telegram Plugin (fetch+map)            [high]
+  ├─→ #7  Telegram plugin (bot-attached)         [high]
   │     └─→ #8  CollectionTaskSyncJob            [high]
   │           └─→ #23 Startup-recovery hook      [high]
   └─→ #10 Structured logging                     [high]
 
 #24 GET /health endpoint                         [medium, независимо]
 #11 CI / GitHub Actions                          [medium, параллельно]
+
+#26 telegram_user credential/session model       [critical, отдельная ветка]
+  └─→ #27 telegram_user MTProto client            [critical]
+        └─→ #28 telegram_user plugin              [high]
+              └─→ #29 telegram_user job integration [high]
+                    └─→ #30 onboarding/audit        [high]
 ```
 
 #### Детальная таблица
@@ -62,7 +68,7 @@ audience: humans_and_agents
 | #18 | [CollectionTask: data model + state machine](https://github.com/asromanychev/ai-da-collect/issues/18) | feature | **critical** | C-1, C-4 |
 | #19 | [Bearer token auth для /tasks*](https://github.com/asromanychev/ai-da-collect/issues/19) | feature | **critical** | C-6 |
 | #20 | [Collection Tasks API: CRUD + lifecycle](https://github.com/asromanychev/ai-da-collect/issues/20) | feature | **critical** | C-1, C-5 |
-| #7  | [Telegram Plugin: fetch+map без записи в БД](https://github.com/asromanychev/ai-da-collect/issues/7) | feature | high | C-3 |
+| #7  | [Telegram plugin: bot-attached channels only](https://github.com/asromanychev/ai-da-collect/issues/7) | feature | high | C-3 |
 | #8  | [CollectionTaskSyncJob: lifecycle + retry](https://github.com/asromanychev/ai-da-collect/issues/8) | feature | high | C-2 |
 | #21 | [GET /tasks/:id/items cursor pagination](https://github.com/asromanychev/ai-da-collect/issues/21) | feature | high | C-4 |
 | #22 | [Webhook режим: secret + routing](https://github.com/asromanychev/ai-da-collect/issues/22) | feature | high | C-6 |
@@ -70,6 +76,11 @@ audience: humans_and_agents
 | #10 | [Структурированные логи: JSON + task_id](https://github.com/asromanychev/ai-da-collect/issues/10) | feature | high | C-7 |
 | #24 | [GET /health + Redis healthcheck](https://github.com/asromanychev/ai-da-collect/issues/24) | feature | medium | C-7 |
 | #11 | [CI: GitHub Actions + coverage](https://github.com/asromanychev/ai-da-collect/issues/11) | infra | medium | — |
+| #26 | [telegram_user: secure credential/session model](https://github.com/asromanychev/ai-da-collect/issues/26) | feature | **critical** | post-MVP extension |
+| #27 | [telegram_user client: MTProto history + incremental fetch](https://github.com/asromanychev/ai-da-collect/issues/27) | feature | **critical** | post-MVP extension |
+| #28 | [telegram_user plugin: public/private channels via user session](https://github.com/asromanychev/ai-da-collect/issues/28) | feature | high | post-MVP extension |
+| #29 | [telegram_user job integration: retry/session-aware failure handling](https://github.com/asromanychev/ai-da-collect/issues/29) | feature | high | post-MVP extension |
+| #30 | [telegram_user onboarding: credential verification, rotation, audit](https://github.com/asromanychev/ai-da-collect/issues/30) | feature | high | post-MVP extension |
 
 ---
 
@@ -86,6 +97,16 @@ audience: humans_and_agents
 | **C-7** | Logging, health, startup-recovery | #10, #24, #23 |
 
 **Покрытие PRD v4: 100% (32/32 требований трасируются к issues или реализованному коду)**
+
+---
+
+## Telegram Roadmap Split
+
+- `telegram_bot` / bot-attached flow:
+  текущий реализованный и roadmap-совместимый путь на Telegram Bot API; работает только для каналов, где бот реально получает `channel_post`.
+- `telegram_user` / user-session flow:
+  новая отдельная ветка работ для чтения истории любых публичных и доступных приватных каналов через user session / MTProto.
+- Эти ветки не должны смешиваться в одном plugin type или одном credential contract.
 
 ---
 

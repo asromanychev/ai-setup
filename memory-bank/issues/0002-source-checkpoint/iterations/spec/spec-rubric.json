@@ -1,0 +1,62 @@
+{
+  "artifact": "spec",
+  "version": "v8",
+  "scale": {
+    "min": 1,
+    "max": 5,
+    "anchor_levels": [1, 3, 5]
+  },
+  "weights_sum_must_equal": 1.0,
+  "dimensions": [
+    {
+      "id": "testability",
+      "name": "Testability",
+      "weight": 0.2,
+      "evaluation_mode": "isolated",
+      "blocker_if_score_lte": 2,
+      "level_1": "Требования нельзя превратить в наблюдаемые проверки.",
+      "level_3": "Основные проверки есть, но часть границ выражена слабо.",
+      "level_5": "Все требования и граничные состояния материализованы в checks и evidence carriers."
+    },
+    {
+      "id": "ambiguity_free",
+      "name": "Ambiguity Free",
+      "weight": 0.2,
+      "evaluation_mode": "isolated",
+      "blocker_if_score_lte": 2,
+      "level_1": "Документ оставляет критичное поведение открытым для толкования.",
+      "level_3": "Основная логика ясна, но часть wording допускает разные реализации.",
+      "level_5": "Поведение описано однозначно и без расплывчатых терминов."
+    },
+    {
+      "id": "state_uniformity",
+      "name": "State Uniformity",
+      "weight": 0.2,
+      "evaluation_mode": "isolated",
+      "blocker_if_score_lte": 2,
+      "level_1": "Успех, empty и error состояния не сведены в единый контракт.",
+      "level_3": "Основные состояния покрыты, но не все edge cases доведены до явного контракта.",
+      "level_5": "Все применимые состояния и непригодные состояния зафиксированы явно."
+    },
+    {
+      "id": "precondition_hygiene",
+      "name": "Precondition Hygiene",
+      "weight": 0.2,
+      "evaluation_mode": "isolated",
+      "blocker_if_score_lte": 2,
+      "level_1": "Внешние prerequisites скрыты как часть обычной реализации.",
+      "level_3": "Prerequisites перечислены, но stop conditions слабы.",
+      "level_5": "Все внешние prerequisites явно вынесены и не смешаны со scope."
+    },
+    {
+      "id": "grounding_realism",
+      "name": "Grounding Realism",
+      "weight": 0.2,
+      "evaluation_mode": "isolated",
+      "blocker_if_score_lte": 2,
+      "level_1": "Спека опирается на выдуманные пути или механизмы.",
+      "level_3": "Grounding в целом реален, но часть связей к коду выражена слабо.",
+      "level_5": "Все обязательства привязаны к существующим файлам и реальным наблюдаемым carrier."
+    }
+  ]
+}

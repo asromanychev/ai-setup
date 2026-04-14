@@ -1,0 +1,30 @@
+{
+  "artifact": "spec",
+  "source_version": "spec-v1.md",
+  "source_scorecard": "spec-score-1.json",
+  "targets": [
+    {
+      "dimension_id": "uniform_coverage",
+      "current_score": 2,
+      "target_score": 5,
+      "change_scope": [
+        "Раздел Uniform: добавить явную запись о неприменимости состояния 'loading/in-progress' для синхронного sync_step с обоснованием",
+        "Раздел Uniform: добавить edge cases таблицу для checkpoint_in: { cursor: 'abc' } и { cursor: -1 } — оба должны поднимать ContractError с конкретным сообщением",
+        "Раздел Uniform: добавить edge cases для source_config[:records]: отсутствие ключа и не-Array значение — оба ContractError при построении NullPlugin",
+        "Раздел AC: добавить соответствующие чекпункты для каждого нового edge case"
+      ],
+      "do_not_touch": [
+        "FR 1-11 — уже корректны и соответствуют brief.md",
+        "Инварианты 1-5 — уже корректны",
+        "Раздел Grounding — файлы и паттерны уже верны",
+        "Существующие строки Uniform-таблицы"
+      ],
+      "acceptance_signal": "Uniform содержит явное утверждение о неприменимости loading state; обе edge case таблицы присутствуют; AC покрывают все новые случаи"
+    }
+  ],
+  "global_constraints": [
+    "Не расширять FR за пределы описанных в brief.md",
+    "Не менять существующие сообщения об ошибках в FR и Uniform",
+    "Не добавлять новые классы или методы за пределами уже заявленных в scope"
+  ]
+}

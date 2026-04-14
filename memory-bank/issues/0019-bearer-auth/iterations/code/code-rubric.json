@@ -1,0 +1,10 @@
+{
+  "stage": "code",
+  "dimensions": [
+    "contract_match",
+    "test_evidence",
+    "scope_discipline",
+    "operational_safety",
+    "integration_quality"
+  ]
+}

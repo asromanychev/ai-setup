@@ -1,0 +1,10 @@
+{
+  "stage": "code",
+  "dimensions": [
+    "requirements_coverage",
+    "runtime_safety",
+    "operational_clarity",
+    "scope_control",
+    "verification_quality"
+  ]
+}

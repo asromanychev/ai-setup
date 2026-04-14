@@ -1,0 +1,11 @@
+{
+  "artifact": "spec",
+  "review": 1,
+  "verdict": "ready_for_activation",
+  "blocker": false,
+  "scores": {
+    "requirement_completeness": 5,
+    "edge_case_coverage": 5,
+    "grounding": 5
+  }
+}

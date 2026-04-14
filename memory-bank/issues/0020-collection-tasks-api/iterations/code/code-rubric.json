@@ -1,0 +1,1 @@
+{"version":1,"stage":"code","dimensions":[{"name":"contract_coverage","weight":0.3},{"name":"correctness","weight":0.3},{"name":"regression_safety","weight":0.2},{"name":"scope_control","weight":0.1},{"name":"verification_evidence","weight":0.1}]}

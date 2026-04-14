@@ -1,0 +1,78 @@
+{
+  "artifact": "plan",
+  "artifact_version": "plan-v1.md",
+  "review_file": "plan-review-1.md",
+  "rubric_file": "plan-rubric.json",
+  "dimensions": [
+    {
+      "id": "dependency_order",
+      "score": 4,
+      "weight": 0.25,
+      "confidence": 0.85,
+      "blocker": false,
+      "evidence": [
+        "Топологический порядок корректен: STEP-1,2,3 → STEP-4b → STEP-5 → STEP-6,7,8 → STEP-9..12 → Gate.",
+        "STEP-4b назван нестандартно (должен быть STEP-4); граф зависимостей использует STEP-4 — лёгкая несогласованность."
+      ],
+      "fix_expectation": "Переименовать STEP-4b в STEP-4 или добавить сноску в граф. Не блокирует."
+    },
+    {
+      "id": "step_atomicity",
+      "score": 5,
+      "weight": 0.20,
+      "confidence": 0.90,
+      "blocker": false,
+      "evidence": [
+        "STEP-1,2,3: по одному файлу миграции.",
+        "STEP-5: один файл collection_task.rb — единственная ответственность.",
+        "STEP-6,7,8,9,10,11,12: по одному файлу на шаг."
+      ],
+      "fix_expectation": "none"
+    },
+    {
+      "id": "delta_specificity",
+      "score": 5,
+      "weight": 0.25,
+      "confidence": 0.90,
+      "blocker": false,
+      "evidence": [
+        "STEP-2: точный список операций с FK, индексами, переименованием колонки.",
+        "STEP-6: bulk-insert validation delta явно описана (AR validations не вызываются, guard через ручную проверку + raise).",
+        "STEP-8: явный список что убрать (upsert_checkpoint!, sync_step!, has_one) и что оставить (validates, scope).",
+        "STEP-12: конкретные describe-блоки для pending."
+      ],
+      "fix_expectation": "none"
+    },
+    {
+      "id": "runtime_gate_quality",
+      "score": 5,
+      "weight": 0.15,
+      "confidence": 0.95,
+      "blocker": false,
+      "evidence": [
+        "Two-tier gate: focused (bundle exec rspec spec/models/collection_task_spec.rb) + regression (bin/ci).",
+        "Оба содержат конкретные команды и pass/fail сигналы.",
+        "CHK-1..CHK-6 + EVID-1 явно задокументированы.",
+        "Финальный шаг — чистый gate без дополнительных правок."
+      ],
+      "fix_expectation": "none"
+    },
+    {
+      "id": "test_materialization",
+      "score": 4,
+      "weight": 0.15,
+      "confidence": 0.85,
+      "blocker": false,
+      "evidence": [
+        "STEP-9 явно покрывает SC-1..SC-12.",
+        "STEP-10,11,12 обновляют все зависимые spec-файлы с дельтами.",
+        "Test DB setup описан в prose-разделе, но не оформлен как отдельный STEP.",
+        "Adversarial ambiguity test (STEP-11) не имеет отдельного intermediate signal."
+      ],
+      "fix_expectation": "Добавить явное упоминание сохранения adversarial SQL-теста в STEP-11. Не блокирует."
+    }
+  ],
+  "critical_risks": [],
+  "weighted_score": 4.60,
+  "verdict": "ready_for_activation"
+}

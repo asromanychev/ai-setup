@@ -1,0 +1,11 @@
+{
+  "artifact": "brief",
+  "review": 1,
+  "verdict": "ready_for_activation",
+  "blocker": false,
+  "scores": {
+    "problem_clarity": 5,
+    "scope_boundary": 5,
+    "observable_success": 5
+  }
+}

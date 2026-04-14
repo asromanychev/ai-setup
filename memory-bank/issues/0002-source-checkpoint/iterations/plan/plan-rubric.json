@@ -1,0 +1,62 @@
+{
+  "artifact": "plan",
+  "version": "v9",
+  "scale": {
+    "min": 1,
+    "max": 5,
+    "anchor_levels": [1, 3, 5]
+  },
+  "weights_sum_must_equal": 1.0,
+  "dimensions": [
+    {
+      "id": "dependency_order",
+      "name": "Dependency Order",
+      "weight": 0.2,
+      "evaluation_mode": "isolated",
+      "blocker_if_score_lte": 2,
+      "level_1": "План нарушает причинный порядок шагов.",
+      "level_3": "Основной порядок верен, но есть слабые места по prerequisite/gate sequencing.",
+      "level_5": "Все шаги расположены по жёстким зависимостям."
+    },
+    {
+      "id": "step_atomicity",
+      "name": "Step Atomicity",
+      "weight": 0.2,
+      "evaluation_mode": "isolated",
+      "blocker_if_score_lte": 2,
+      "level_1": "Шаги смешивают несколько несвязанных целей.",
+      "level_3": "Большинство шагов атомарны, но часть всё ещё широкая.",
+      "level_5": "Каждый шаг имеет локальный чёткий результат и signal."
+    },
+    {
+      "id": "delta_specificity",
+      "name": "Delta Specificity",
+      "weight": 0.2,
+      "evaluation_mode": "isolated",
+      "blocker_if_score_lte": 2,
+      "level_1": "План опирается на догадки вместо конкретных файлов и дельт.",
+      "level_3": "Большинство дельт конкретно указаны, но часть шагов ещё абстрактна.",
+      "level_5": "Каждый шаг grounded в конкретных файлах, rollback и signal."
+    },
+    {
+      "id": "runtime_gate_quality",
+      "name": "Runtime Gate Quality",
+      "weight": 0.2,
+      "evaluation_mode": "isolated",
+      "blocker_if_score_lte": 2,
+      "level_1": "Runtime-gates неотделимы от правок или скрывают фейлы.",
+      "level_3": "Runtime-gates есть, но не все blocker states разведены.",
+      "level_5": "Runtime-gates чистые и явно разделяют code defect и infrastructure blocker."
+    },
+    {
+      "id": "test_materialization",
+      "name": "Test Materialization",
+      "weight": 0.2,
+      "evaluation_mode": "isolated",
+      "blocker_if_score_lte": 2,
+      "level_1": "Acceptance criteria не материализованы в test strategy.",
+      "level_3": "Основные проверки есть, но часть AC не привязана к test carriers.",
+      "level_5": "Все AC привязаны к конкретным automated/manual carriers."
+    }
+  ]
+}

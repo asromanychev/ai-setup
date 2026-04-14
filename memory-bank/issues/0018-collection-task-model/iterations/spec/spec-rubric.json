@@ -1,0 +1,63 @@
+{
+  "artifact": "spec",
+  "version": "v1",
+  "issue": 18,
+  "scale": {
+    "min": 1,
+    "max": 5,
+    "anchor_levels": [1, 3, 5]
+  },
+  "weights_sum_must_equal": 1.0,
+  "dimensions": [
+    {
+      "id": "testability",
+      "name": "Testability",
+      "weight": 0.25,
+      "evaluation_mode": "isolated",
+      "blocker_if_score_lte": 2,
+      "level_1": "AC отсутствуют или нельзя написать автотесты — только prose без проверяемых условий.",
+      "level_3": "AC есть, но часть из них не фальсифицируема или требует ручной проверки без Observable output.",
+      "level_5": "Каждый AC имеет конкретный Observable output, проверяемый автотестом; есть негативные и adversarial сценарии."
+    },
+    {
+      "id": "ambiguity_free",
+      "name": "Ambiguity Free",
+      "weight": 0.20,
+      "evaluation_mode": "isolated",
+      "blocker_if_score_lte": 2,
+      "level_1": "Текст содержит слова-паразиты («быстро», «удобно», «при необходимости») или нераскрытые альтернативы.",
+      "level_3": "Большинство требований однозначны, но есть 1-2 термина без явного определения или без указания семантики.",
+      "level_5": "Каждый термин и каждое требование однозначны; семантика выбрана явно (idempotent insert vs skip, error vs log и т.д.)."
+    },
+    {
+      "id": "state_uniformity",
+      "name": "State Uniformity",
+      "weight": 0.25,
+      "evaluation_mode": "isolated",
+      "blocker_if_score_lte": 2,
+      "level_1": "Описан только happy path; ошибки, edge cases или состояния lifecycle не охвачены.",
+      "level_3": "Описаны основные ошибки, но пропущены граничные состояния lifecycle или adversarial cases для инвариантов.",
+      "level_5": "Все состояния lifecycle и все инварианты имеют описание + adversarial edge case, который пытается сломать гарантию."
+    },
+    {
+      "id": "precondition_hygiene",
+      "name": "Precondition Hygiene",
+      "weight": 0.15,
+      "evaluation_mode": "isolated",
+      "blocker_if_score_lte": 2,
+      "level_1": "Спека опирается на внешние prerequisites, которых нет в проекте, без явного указания на это.",
+      "level_3": "Prerequisites отмечены, но нет явного stop condition или признака, что спека неисполняема без них.",
+      "level_5": "Все prerequisites либо grounded в текущей кодовой базе, либо вынесены в раздел Preconditions с явным stop condition."
+    },
+    {
+      "id": "grounding_realism",
+      "name": "Grounding Realism",
+      "weight": 0.15,
+      "evaluation_mode": "isolated",
+      "blocker_if_score_lte": 2,
+      "level_1": "Grounding содержит несуществующие файлы, гемы или паттерны; реализация невозможна без добавления внешних зависимостей без указания.",
+      "level_3": "Grounding реален, но неполный — часть файлов или паттернов не указана.",
+      "level_5": "Grounding точен: все упомянутые файлы существуют, паттерны соответствуют кодовой базе; любая новая зависимость явно обозначена."
+    }
+  ]
+}

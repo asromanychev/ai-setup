@@ -1,0 +1,66 @@
+{
+  "artifact": "spec",
+  "artifact_version": "spec-v8.md",
+  "review_file": "spec-review-7.md",
+  "rubric_file": "spec-rubric.json",
+  "dimensions": [
+    {
+      "id": "testability",
+      "score": 5,
+      "weight": 0.2,
+      "confidence": 0.94,
+      "blocker": false,
+      "evidence": [
+        "Each REQ maps to SC, CHK, and evidence carriers including schema, specs, and code review artifacts."
+      ],
+      "fix_expectation": "None."
+    },
+    {
+      "id": "ambiguity_free",
+      "score": 5,
+      "weight": 0.2,
+      "confidence": 0.94,
+      "blocker": false,
+      "evidence": [
+        "The spec distinguishes source identity, checkpoint multiplicity, and nil-vs-empty behavior precisely."
+      ],
+      "fix_expectation": "None."
+    },
+    {
+      "id": "state_uniformity",
+      "score": 5,
+      "weight": 0.2,
+      "confidence": 0.92,
+      "blocker": false,
+      "evidence": [
+        "Success, error, empty, and non-applicable loading states are all defined explicitly."
+      ],
+      "fix_expectation": "None."
+    },
+    {
+      "id": "precondition_hygiene",
+      "score": 5,
+      "weight": 0.2,
+      "confidence": 0.95,
+      "blocker": false,
+      "evidence": [
+        "External prerequisites are isolated in section 2.1 instead of being embedded as hidden scope."
+      ],
+      "fix_expectation": "None."
+    },
+    {
+      "id": "grounding_realism",
+      "score": 5,
+      "weight": 0.2,
+      "confidence": 0.91,
+      "blocker": false,
+      "evidence": [
+        "The design is grounded in existing models, schema, specs, and the real rails_helper runtime behavior."
+      ],
+      "fix_expectation": "None."
+    }
+  ],
+  "critical_risks": [],
+  "weighted_score": 5.0,
+  "verdict": "ready_for_activation"
+}

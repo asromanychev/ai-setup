@@ -1,0 +1,10 @@
+{
+  "stage": "brief",
+  "dimensions": [
+    "problem_clarity",
+    "scope_control",
+    "user_impact",
+    "observable_success",
+    "non_solution_focus"
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "artifact": "plan",
+  "review": 1,
+  "verdict": "ready_for_activation",
+  "blocker": false,
+  "scores": {
+    "delta_quality": 5,
+    "scope_control": 5,
+    "runtime_gates": 5
+  }
+}

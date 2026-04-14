@@ -1,0 +1,62 @@
+{
+  "artifact": "code",
+  "version": "v3",
+  "scale": {
+    "min": 1,
+    "max": 5,
+    "anchor_levels": [1, 3, 5]
+  },
+  "weights_sum_must_equal": 1.0,
+  "dimensions": [
+    {
+      "id": "scope_compliance",
+      "name": "Scope Compliance",
+      "weight": 0.2,
+      "evaluation_mode": "isolated",
+      "blocker_if_score_lte": 2,
+      "level_1": "Изменение смешано с чужим feature scope и неотделимо от него.",
+      "level_3": "Основная логика соответствует feature, но рабочее дерево содержит downstream contamination.",
+      "level_5": "Весь reviewed код строго соответствует active spec/plan текущего issue."
+    },
+    {
+      "id": "invariant_preservation",
+      "name": "Invariant Preservation",
+      "weight": 0.25,
+      "evaluation_mode": "isolated",
+      "blocker_if_score_lte": 2,
+      "level_1": "Ключевые инварианты feature нарушены.",
+      "level_3": "Основные инварианты выглядят сохранёнными, но среда или контекст мешают полному подтверждению.",
+      "level_5": "Все инварианты подтверждены кодом и проверками."
+    },
+    {
+      "id": "test_adequacy",
+      "name": "Test Adequacy",
+      "weight": 0.2,
+      "evaluation_mode": "isolated",
+      "blocker_if_score_lte": 2,
+      "level_1": "Тесты не материализуют acceptance criteria feature.",
+      "level_3": "Feature-level тесты есть, но смешаны с поздним scope.",
+      "level_5": "Тесты полно и чисто покрывают только текущую feature."
+    },
+    {
+      "id": "runtime_readiness",
+      "name": "Runtime Readiness",
+      "weight": 0.15,
+      "evaluation_mode": "isolated",
+      "blocker_if_score_lte": 2,
+      "level_1": "Целевой runtime gate не материализован.",
+      "level_3": "Часть runtime proof есть, но остаётся незакрытый blocker.",
+      "level_5": "Целевой runtime path подтверждён полностью."
+    },
+    {
+      "id": "regression_risk",
+      "name": "Regression Risk",
+      "weight": 0.2,
+      "evaluation_mode": "isolated",
+      "blocker_if_score_lte": 2,
+      "level_1": "Есть высокий риск регрессий или скрытый scope expansion.",
+      "level_3": "Риск умеренный и частично компенсирован review/test evidence.",
+      "level_5": "Риск низкий: scope локален, runtime подтверждён, контракты чисты."
+    }
+  ]
+}

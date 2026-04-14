@@ -1,0 +1,1 @@
+{"version":1,"stage":"plan","dimensions":[{"name":"step_granularity","weight":0.25},{"name":"dependency_clarity","weight":0.2},{"name":"runtime_gates","weight":0.25},{"name":"scope_safety","weight":0.15},{"name":"contract_alignment","weight":0.15}]}

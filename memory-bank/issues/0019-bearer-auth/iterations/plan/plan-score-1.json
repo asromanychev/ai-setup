@@ -1,0 +1,13 @@
+{
+  "stage": "plan",
+  "verdict": "ready_for_activation",
+  "blocker": false,
+  "weighted_score": 4.8,
+  "dimensions": {
+    "step_atomicity": 5,
+    "file_grounding": 5,
+    "verification_quality": 5,
+    "risk_control": 4,
+    "scope_discipline": 5
+  }
+}

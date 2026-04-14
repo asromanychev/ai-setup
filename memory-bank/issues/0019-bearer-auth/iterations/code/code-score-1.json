@@ -1,0 +1,17 @@
+{
+  "stage": "code",
+  "verdict": "ready_for_activation",
+  "blocker": false,
+  "weighted_score": 4.9,
+  "dimensions": {
+    "contract_match": 5,
+    "test_evidence": 5,
+    "scope_discipline": 5,
+    "operational_safety": 4,
+    "integration_quality": 5
+  },
+  "evidence": [
+    "focused runtime: 7 examples, 0 failures",
+    "full regression: 165 examples, 0 failures, 28 pending"
+  ]
+}

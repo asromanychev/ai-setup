@@ -1,0 +1,1 @@
+{"stage":"spec","iteration":1,"blocker":false,"verdict":"ready_for_activation","weighted_score":4.7,"dimensions":{"contract_completeness":{"score":5},"acceptance_precision":{"score":5},"scope_control":{"score":5},"invariants":{"score":4},"testability":{"score":5}}}

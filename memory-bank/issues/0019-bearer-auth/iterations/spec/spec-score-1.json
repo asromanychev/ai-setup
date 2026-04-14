@@ -1,0 +1,13 @@
+{
+  "stage": "spec",
+  "verdict": "ready_for_activation",
+  "blocker": false,
+  "weighted_score": 4.9,
+  "dimensions": {
+    "requirement_completeness": 5,
+    "traceability": 5,
+    "invariant_quality": 4,
+    "scope_discipline": 5,
+    "testability": 5
+  }
+}

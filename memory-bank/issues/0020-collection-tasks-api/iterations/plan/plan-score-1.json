@@ -1,0 +1,1 @@
+{"stage":"plan","iteration":1,"blocker":false,"verdict":"ready_for_activation","weighted_score":4.8,"dimensions":{"step_granularity":{"score":5},"dependency_clarity":{"score":5},"runtime_gates":{"score":5},"scope_safety":{"score":4},"contract_alignment":{"score":5}}}

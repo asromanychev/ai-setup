@@ -1,0 +1,9 @@
+{
+  "artifact": "code",
+  "version": 1,
+  "dimensions": [
+    "contract_fidelity",
+    "scope_breach",
+    "runtime_status"
+  ]
+}

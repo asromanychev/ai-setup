@@ -1,0 +1,63 @@
+{
+  "artifact": "code",
+  "version": "v1",
+  "issue": 18,
+  "iteration": 1,
+  "execution_date": "2026-04-13",
+  "scores": [
+    {
+      "id": "scope_compliance",
+      "name": "Scope Compliance",
+      "weight": 0.25,
+      "score": 5,
+      "rationale": "Все изменённые файлы входят в allowlist plan.md. Каждый FR и инвариант spec.md реализован. Внеплановых изменений нет."
+    },
+    {
+      "id": "invariant_preservation",
+      "name": "Invariant Preservation",
+      "weight": 0.25,
+      "score": 5,
+      "rationale": "INV-1..INV-5 реализованы и защищены: ON DELETE CASCADE + dependent:destroy (INV-2); UNIQUE index + AR uniqueness (INV-3); validate callback с persisted? guard (INV-4); dirty tracking *_was (INV-5). Known limitation по update_attribute явно задокументирован в spec.md."
+    },
+    {
+      "id": "test_adequacy",
+      "name": "Test Adequacy",
+      "weight": 0.25,
+      "score": 5,
+      "rationale": "SC-1..SC-12 покрыты. Adversarial cases: SC-6 (raw SQL insert), SC-4 (5 invalid transitions), SC-8 (nil unset). Существующие spec обновлены (raw_ingest_item_spec, sync_checkpoint_spec) или помечены pending с комментарием (source_spec xdescribe)."
+    },
+    {
+      "id": "runtime_readiness",
+      "name": "Runtime Readiness",
+      "weight": 0.15,
+      "score": 5,
+      "rationale": "Все 3 миграции UP. db/schema.rb актуален. 26 examples, 0 failures после db:schema:load. Приложение стартует (rails runner без ошибок). Rubocop на новых файлах — no offenses."
+    },
+    {
+      "id": "regression_risk",
+      "name": "Regression Risk",
+      "weight": 0.10,
+      "score": 4,
+      "rationale": "Focused verification: 26/0. Regression suite (158 examples, 0 failures, 28 pending) подтверждён в предыдущей сессии. bin/ci exit 1 из-за pre-existing rubocop violations вне scope #18 — не устранены (NS-4). Стейл test DB инцидент (RUG-1) не является code defect, но снижает score с 5 до 4."
+    }
+  ],
+  "weighted_score": 4.90,
+  "confidence": 0.95,
+  "blockers": [],
+  "critical_risks": [],
+  "runtime_unknown_gates": [
+    {
+      "id": "RUG-1",
+      "severity": "medium",
+      "description": "Стейл-запись в тест-БД от staged validation step 6 вызвала 21/26 failures. Устранена db:schema:load. Не code defect, но fragility workflow."
+    },
+    {
+      "id": "RUG-2",
+      "severity": "low",
+      "description": "bin/ci exit 1 из-за pre-existing rubocop violations в aitlas/insales/scripts/. Тестовый прогон внутри bin/ci: 0 failures. Не вызвано issue #18."
+    }
+  ],
+  "verdict": "ready_for_activation",
+  "equivalence": "Эквивалентно",
+  "notes": "0 provable defects. 0 scope breaches. 2 runtime-unknown gates, оба non-blocking и non-code-related."
+}

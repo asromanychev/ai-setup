@@ -1,0 +1,10 @@
+{
+  "stage": "brief",
+  "dimensions": [
+    "problem_clarity",
+    "stakeholders",
+    "constraints",
+    "success_criteria",
+    "scope_control"
+  ]
+}

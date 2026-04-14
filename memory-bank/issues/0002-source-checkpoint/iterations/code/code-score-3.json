@@ -1,0 +1,71 @@
+{
+  "artifact": "code",
+  "artifact_version": "working-tree",
+  "review_file": "code-review-3.md",
+  "rubric_file": "code-rubric.json",
+  "dimensions": [
+    {
+      "id": "scope_compliance",
+      "score": 3,
+      "weight": 0.2,
+      "confidence": 0.91,
+      "blocker": false,
+      "evidence": [
+        "Source and source_spec still contain the persistence logic of issue 0002, but the same files also host downstream sync_step orchestration behavior outside the issue scope."
+      ],
+      "fix_expectation": "Document or separate downstream ownership so feature-level review is not forced to reason about mixed scope."
+    },
+    {
+      "id": "invariant_preservation",
+      "score": 4,
+      "weight": 0.25,
+      "confidence": 0.88,
+      "blocker": false,
+      "evidence": [
+        "Normalization, unique source identity, checkpoint upsert, ambiguity detection, and FK-backed cascade are all visible in code and schema."
+      ],
+      "fix_expectation": "Retain current persistence invariants and keep later orchestration logic from weakening them."
+    },
+    {
+      "id": "test_adequacy",
+      "score": 3,
+      "weight": 0.2,
+      "confidence": 0.85,
+      "blocker": false,
+      "evidence": [
+        "Feature-level tests exist, but source_spec is no longer feature-pure because it includes sync_step cases from later work."
+      ],
+      "fix_expectation": "Split or annotate tests by feature ownership when reprocessing historical issues."
+    },
+    {
+      "id": "runtime_readiness",
+      "score": 2,
+      "weight": 0.15,
+      "confidence": 0.95,
+      "blocker": true,
+      "evidence": [
+        "The intended model runtime gate fails before examples load because spec/rails_helper.rb triggers ActiveRecord::ConnectionNotEstablished in the current environment."
+      ],
+      "fix_expectation": "Restore accessible PostgreSQL test runtime and rerun the model specs."
+    },
+    {
+      "id": "regression_risk",
+      "score": 3,
+      "weight": 0.2,
+      "confidence": 0.84,
+      "blocker": false,
+      "evidence": [
+        "Schema and core specs look stable, but full Rails/model regression remains unconfirmed and file ownership is mixed."
+      ],
+      "fix_expectation": "Re-run the Rails/model suite and keep feature boundaries explicit."
+    }
+  ],
+  "blockers": [
+    "runtime_readiness"
+  ],
+  "critical_risks": [
+    "Rails model runtime for issue 0002 is not currently executable in this environment."
+  ],
+  "weighted_score": 3.15,
+  "verdict": "not_ready_for_activation"
+}

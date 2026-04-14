@@ -1,0 +1,62 @@
+{
+  "artifact": "brief",
+  "version": "v7",
+  "scale": {
+    "min": 1,
+    "max": 5,
+    "anchor_levels": [1, 3, 5]
+  },
+  "weights_sum_must_equal": 1.0,
+  "dimensions": [
+    {
+      "id": "problem_clarity",
+      "name": "Problem Clarity",
+      "weight": 0.2,
+      "evaluation_mode": "isolated",
+      "blocker_if_score_lte": 2,
+      "level_1": "Проблема расплывчата или не наблюдаема.",
+      "level_3": "Проблема понятна, но часть симптомов или границ выражена слабо.",
+      "level_5": "Проблема описана через наблюдаемые симптомы и точную границу отказа."
+    },
+    {
+      "id": "stakeholder_specificity",
+      "name": "Stakeholder Specificity",
+      "weight": 0.2,
+      "evaluation_mode": "isolated",
+      "blocker_if_score_lte": 2,
+      "level_1": "Неясно, для кого решается задача.",
+      "level_3": "Стейкхолдер назван, но его потребность остаётся общей.",
+      "level_5": "Стейкхолдер и его конкретный operational pain описаны однозначно."
+    },
+    {
+      "id": "problem_solution_separation",
+      "name": "Problem Solution Separation",
+      "weight": 0.2,
+      "evaluation_mode": "isolated",
+      "blocker_if_score_lte": 2,
+      "level_1": "Бриф уходит в solution space и инженерные детали.",
+      "level_3": "Есть отдельные solution leakage элементы.",
+      "level_5": "Документ удерживает только problem space."
+    },
+    {
+      "id": "success_criteria_observability",
+      "name": "Success Criteria Observability",
+      "weight": 0.2,
+      "evaluation_mode": "isolated",
+      "blocker_if_score_lte": 2,
+      "level_1": "Критерии успеха не наблюдаемы.",
+      "level_3": "Большинство критериев наблюдаемы, но часть формулировок неоднозначна.",
+      "level_5": "Все критерии успеха проверяемы через наблюдаемое поведение или состояние."
+    },
+    {
+      "id": "scope_boundary_integrity",
+      "name": "Scope Boundary Integrity",
+      "weight": 0.2,
+      "evaluation_mode": "isolated",
+      "blocker_if_score_lte": 2,
+      "level_1": "Границы задачи неочевидны или смешаны с соседними фичами.",
+      "level_3": "Границы в целом определены, но есть слабые места по соседним фичам.",
+      "level_5": "In-scope и out-of-scope чётко разведены."
+    }
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "artifact": "plan",
+  "source_version": "plan-v3.md",
+  "source_scorecard": "plan-score-3.json",
+  "targets": [
+    {
+      "dimension_id": "sequencing",
+      "current_score": 3,
+      "target_score": 5,
+      "change_scope": [
+        "Шаг про plugin_registry.rb: сделать условным явно — добавить 'выполняется только если шаг N выявил расхождение'",
+        "Указать предшествующий observable gate: 'запустить bundle exec rspec spec/core/collect/plugin_registry_spec.rb' как шаг N, результат которого определяет нужен ли шаг N+1"
+      ],
+      "do_not_touch": [
+        "Шаги про plugin.rb и null_plugin.rb — уже корректны с delta-first",
+        "Шаги про расширение тестов — уже атомарны"
+      ],
+      "acceptance_signal": "Условный шаг явно ссылается на предшествующий тест как observable gate; порядок зависимостей однозначен"
+    },
+    {
+      "dimension_id": "runtime_gate",
+      "current_score": 2,
+      "target_score": 4,
+      "change_scope": [
+        "Добавить финальный шаг: bundle exec rspec spec/core/collect/ (или bundle exec rspec) с явным pass/fail критерием",
+        "Финальный шаг должен включать проверку coverage threshold ≥80% через CoverageAssertions"
+      ],
+      "do_not_touch": [
+        "Промежуточный тест plugin_registry_spec.rb в шаге 5 — оставить как focused verification"
+      ],
+      "acceptance_signal": "В конце плана есть отдельный шаг с конкретной командой запуска всего suite и явным порогом покрытия"
+    }
+  ],
+  "global_constraints": [
+    "Не переформулировать уже корректные delta-first шаги",
+    "Не добавлять шаги за пределами allowlist spec.md",
+    "Не менять порядок шагов 3-4 (plugin.rb → null_plugin.rb) — зависимость корректна"
+  ]
+}

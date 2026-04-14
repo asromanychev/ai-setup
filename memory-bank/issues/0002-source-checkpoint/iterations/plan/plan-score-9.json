@@ -1,0 +1,66 @@
+{
+  "artifact": "plan",
+  "artifact_version": "plan-v9.md",
+  "review_file": "plan-review-9.md",
+  "rubric_file": "plan-rubric.json",
+  "dimensions": [
+    {
+      "id": "dependency_order",
+      "score": 5,
+      "weight": 0.2,
+      "confidence": 0.94,
+      "blocker": false,
+      "evidence": [
+        "The plan restores upstream artifacts before downstream reviews and analysis."
+      ],
+      "fix_expectation": "None."
+    },
+    {
+      "id": "step_atomicity",
+      "score": 5,
+      "weight": 0.2,
+      "confidence": 0.93,
+      "blocker": false,
+      "evidence": [
+        "Each step has a concrete delta, rollback, and observable signal."
+      ],
+      "fix_expectation": "None."
+    },
+    {
+      "id": "delta_specificity",
+      "score": 5,
+      "weight": 0.2,
+      "confidence": 0.93,
+      "blocker": false,
+      "evidence": [
+        "The plan names exact issue files and review artifact directories instead of abstract work buckets."
+      ],
+      "fix_expectation": "None."
+    },
+    {
+      "id": "runtime_gate_quality",
+      "score": 5,
+      "weight": 0.2,
+      "confidence": 0.95,
+      "blocker": false,
+      "evidence": [
+        "Runtime checks explicitly distinguish green results from infrastructure blockers and avoid silent pass semantics."
+      ],
+      "fix_expectation": "None."
+    },
+    {
+      "id": "test_materialization",
+      "score": 5,
+      "weight": 0.2,
+      "confidence": 0.92,
+      "blocker": false,
+      "evidence": [
+        "Automated model/core specs and manual acceptance carriers are both wired into the plan."
+      ],
+      "fix_expectation": "None."
+    }
+  ],
+  "critical_risks": [],
+  "weighted_score": 5.0,
+  "verdict": "ready_for_activation"
+}

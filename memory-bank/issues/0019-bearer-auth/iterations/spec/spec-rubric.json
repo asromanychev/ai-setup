@@ -1,0 +1,10 @@
+{
+  "stage": "spec",
+  "dimensions": [
+    "requirement_completeness",
+    "traceability",
+    "invariant_quality",
+    "scope_discipline",
+    "testability"
+  ]
+}

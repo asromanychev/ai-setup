@@ -1,0 +1,75 @@
+{
+  "artifact": "brief",
+  "artifact_version": "brief-v1.md",
+  "review_file": "brief-review-1.md",
+  "rubric_file": "brief-rubric.json",
+  "dimensions": [
+    {
+      "id": "problem_clarity",
+      "score": 5,
+      "weight": 0.25,
+      "confidence": 0.95,
+      "blocker": false,
+      "evidence": [
+        "В сервисе ai-da-collect отсутствует центральная доменная сущность CollectionTask, без которой невозможно принять, отследить и завершить ни одно задание на сбор данных.",
+        "текущая схема БД построена вокруг устаревшей сущности sources (с FK source_id в raw_ingest_items и sync_checkpoints), которая не поддерживает: жизненный цикл задания; изоляцию по заказчику; конфигурируемое поведение сбора"
+      ],
+      "fix_expectation": "none"
+    },
+    {
+      "id": "stakeholder_specificity",
+      "score": 5,
+      "weight": 0.15,
+      "confidence": 0.90,
+      "blocker": false,
+      "evidence": [
+        "Внешние агенты (requester) — системы или пользователи, которые отправляют задания на сбор данных и ожидают жизненного цикла от создания до потребления результата.",
+        "Разработчики и downstream-сервисы — команды, реализующие Job, API и Webhooks, которые сейчас не могут стартовать из-за отсутствия контрактной модели.",
+        "задача имеет статус critical и стоит первой в бэклоге"
+      ],
+      "fix_expectation": "none"
+    },
+    {
+      "id": "problem_solution_separation",
+      "score": 5,
+      "weight": 0.25,
+      "confidence": 0.90,
+      "blocker": false,
+      "evidence": [
+        "Технические термины (raw_ingest_items, sync_checkpoints, requester_id) используются как контекстные ограничения среды, а не как предписание реализации.",
+        "Раздел Технический контекст описывает текущее состояние без проектирования решения.",
+        "Никаких таблиц с конкретными полями, классов, методов или библиотек в разделах Problem или Criteria не обнаружено."
+      ],
+      "fix_expectation": "none"
+    },
+    {
+      "id": "success_criteria_observability",
+      "score": 4,
+      "weight": 0.20,
+      "confidence": 0.85,
+      "blocker": false,
+      "evidence": [
+        "CS-1: задание можно провести от created до consumed и до failed — наблюдаемое поведение.",
+        "CS-3: изменение не принимается системой; значение остаётся прежним — наблюдаемо.",
+        "CS-4: связанные записи также удаляются — наблюдаемо.",
+        "CS-2: 'вызывает явную ошибку уникальности' — незначительно технична, не blocker"
+      ],
+      "fix_expectation": "При следующей правке заменить 'ошибку уникальности' на 'система отклоняет с явным сигналом об отказе'. Не обязательно до активации."
+    },
+    {
+      "id": "scope_boundary_integrity",
+      "score": 5,
+      "weight": 0.15,
+      "confidence": 0.95,
+      "blocker": false,
+      "evidence": [
+        "Вне скоупа: API-эндпоинты, удаление старых моделей, плагины, Job-оркестрация, Webhooks, нормализация, AI.",
+        "Критерии успеха CS-1..CS-5 не требуют ничего из списка Out of Scope — цепочка symptom → required boundary → scope замкнута без противоречий."
+      ],
+      "fix_expectation": "none"
+    }
+  ],
+  "critical_risks": [],
+  "weighted_score": 4.80,
+  "verdict": "ready_for_activation"
+}

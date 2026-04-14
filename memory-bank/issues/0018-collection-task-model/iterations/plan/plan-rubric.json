@@ -1,0 +1,63 @@
+{
+  "artifact": "plan",
+  "version": "v1",
+  "issue": 18,
+  "scale": {
+    "min": 1,
+    "max": 5,
+    "anchor_levels": [1, 3, 5]
+  },
+  "weights_sum_must_equal": 1.0,
+  "dimensions": [
+    {
+      "id": "dependency_order",
+      "name": "Dependency Order",
+      "weight": 0.25,
+      "evaluation_mode": "isolated",
+      "blocker_if_score_lte": 2,
+      "level_1": "Шаги нарушают порядок зависимостей: код использует таблицу, которой ещё нет; тест запускается до реализации.",
+      "level_3": "Порядок в основном корректен, но есть 1-2 шага, которые можно поставить раньше без нарушений.",
+      "level_5": "Полный топологический порядок: сначала схема, потом модели, потом тесты. Нет циклических зависимостей."
+    },
+    {
+      "id": "step_atomicity",
+      "name": "Step Atomicity",
+      "weight": 0.20,
+      "evaluation_mode": "isolated",
+      "blocker_if_score_lte": 2,
+      "level_1": "Шаги размыты: несколько несвязанных изменений в одном шаге без обоснования.",
+      "level_3": "Большинство шагов атомарны, но есть 1-2 с несвязанными изменениями.",
+      "level_5": "Каждый шаг = один файл / одна логическая операция. Зависимые изменения разделены на отдельные шаги."
+    },
+    {
+      "id": "delta_specificity",
+      "name": "Delta Specificity",
+      "weight": 0.25,
+      "evaluation_mode": "isolated",
+      "blocker_if_score_lte": 2,
+      "level_1": "Дельта не указана или описана как 'исправить файл' без конкретики: что есть, чего не хватает, что трогать нельзя.",
+      "level_3": "Дельта описана, но не для всех шагов или неполная (не указано, что нельзя трогать).",
+      "level_5": "Каждый шаг содержит явную дельту: текущее состояние, требуемое добавление/изменение, запрет на трогание несвязанного кода."
+    },
+    {
+      "id": "runtime_gate_quality",
+      "name": "Runtime Gate Quality",
+      "weight": 0.15,
+      "evaluation_mode": "isolated",
+      "blocker_if_score_lte": 2,
+      "level_1": "Нет финального runtime gate или gate описан без команды и pass/fail сигнала.",
+      "level_3": "Gate есть, но только один уровень (focused или regression, но не оба); сигнал не полностью специфицирован.",
+      "level_5": "Two-tier gate: focused verification (новые specs) + regression gate (bin/ci); оба содержат конкретные команды и pass/fail сигналы."
+    },
+    {
+      "id": "test_materialization",
+      "name": "Test Materialization",
+      "weight": 0.15,
+      "evaluation_mode": "isolated",
+      "blocker_if_score_lte": 2,
+      "level_1": "Тест-план отсутствует или описан без конкретных файлов и покрытия AC.",
+      "level_3": "Тест-план есть, но не все AC покрыты или не указана трассировка к spec.",
+      "level_5": "Тест-план явный: каждый файл spec, каждый AC покрыт, указана трассировка к SC/REQ из spec.md."
+    }
+  ]
+}

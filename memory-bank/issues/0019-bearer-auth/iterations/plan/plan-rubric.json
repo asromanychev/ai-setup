@@ -1,0 +1,10 @@
+{
+  "stage": "plan",
+  "dimensions": [
+    "step_atomicity",
+    "file_grounding",
+    "verification_quality",
+    "risk_control",
+    "scope_discipline"
+  ]
+}

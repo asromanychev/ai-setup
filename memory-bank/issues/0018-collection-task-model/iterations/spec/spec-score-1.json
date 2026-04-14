@@ -1,0 +1,82 @@
+{
+  "artifact": "spec",
+  "artifact_version": "spec-v1.md",
+  "review_file": "spec-review-1.md",
+  "rubric_file": "spec-rubric.json",
+  "dimensions": [
+    {
+      "id": "testability",
+      "score": 5,
+      "weight": 0.25,
+      "confidence": 0.90,
+      "blocker": false,
+      "evidence": [
+        "SC-1..SC-12 — конкретные сценарии с Observable output.",
+        "SC-4: ожидаемое исключение CollectionTask::InvalidTransitionError.",
+        "SC-7: ожидаемое ActiveRecord::RecordInvalid при изменении collection_mode.",
+        "CHK-1..CHK-8 содержат конкретные команды и observable facts.",
+        "EVID-1 указывает на spec/models/collection_task_spec.rb."
+      ],
+      "fix_expectation": "none"
+    },
+    {
+      "id": "ambiguity_free",
+      "score": 5,
+      "weight": 0.20,
+      "confidence": 0.90,
+      "blocker": false,
+      "evidence": [
+        "Нет слов-паразитов («быстро», «удобно»).",
+        "Immutable collection_mode: зафиксировано через before_validation callback.",
+        "fail!(error: nil) -> last_error = '' — семантика явно описана в SC-E8.",
+        "Retry-семантика: start_collecting! после failed очищает last_error."
+      ],
+      "fix_expectation": "none"
+    },
+    {
+      "id": "state_uniformity",
+      "score": 4,
+      "weight": 0.25,
+      "confidence": 0.85,
+      "blocker": false,
+      "evidence": [
+        "SC-E1..SC-E8 покрывают ошибочные состояния.",
+        "Состояния TAUS (loading, empty) явно помечены как неприменимые с объяснением.",
+        "Adversarial cases для INV-2 и INV-3 задокументированы.",
+        "Незначительный пробел: нет SC для happy-path collection_mode != 'polling' без poll_interval_seconds."
+      ],
+      "fix_expectation": "При следующей итерации добавить SC-13 для collection_mode != 'polling'. Не обязательно до активации."
+    },
+    {
+      "id": "precondition_hygiene",
+      "score": 5,
+      "weight": 0.15,
+      "confidence": 0.95,
+      "blocker": false,
+      "evidence": [
+        "Раздел 2.1 Preconditions перечисляет все зависимости.",
+        "PostgreSQL, gems pg и rails подтверждены в Gemfile.",
+        "Таблицы raw_ingest_items и sync_checkpoints подтверждены через db/schema.rb.",
+        "State machine реализован без внешнего гема — нет неgounded зависимостей."
+      ],
+      "fix_expectation": "none"
+    },
+    {
+      "id": "grounding_realism",
+      "score": 5,
+      "weight": 0.15,
+      "confidence": 0.95,
+      "blocker": false,
+      "evidence": [
+        "Все упомянутые файлы (source.rb, raw_ingest_item.rb, sync_checkpoint.rb, application_record.rb) существуют.",
+        "Spec-файлы (raw_ingest_item_spec.rb, sync_checkpoint_spec.rb, rails_helper.rb) существуют.",
+        "CollectionTask::InvalidTransitionError — вложенный класс, нет внешней зависимости.",
+        "Паттерны (validates, belongs_to, before_validation) соответствуют кодовой базе."
+      ],
+      "fix_expectation": "none"
+    }
+  ],
+  "critical_risks": [],
+  "weighted_score": 4.75,
+  "verdict": "ready_for_activation"
+}

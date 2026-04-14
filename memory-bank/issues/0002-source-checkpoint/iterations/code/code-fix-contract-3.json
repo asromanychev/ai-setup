@@ -1,0 +1,40 @@
+{
+  "artifact": "code",
+  "source_version": "working-tree",
+  "source_scorecard": "code-score-3.json",
+  "targets": [
+    {
+      "dimension_id": "runtime_readiness",
+      "current_score": 2,
+      "target_score": 5,
+      "change_scope": [
+        "No production-code patch is prescribed. Repair belongs to local/CI PostgreSQL availability for spec/rails_helper.rb and the final model runtime gate."
+      ],
+      "do_not_touch": [
+        "app/models/source.rb",
+        "app/models/sync_checkpoint.rb",
+        "spec/models/source_spec.rb",
+        "spec/models/sync_checkpoint_spec.rb",
+        "core/lib/**"
+      ],
+      "acceptance_signal": "bundle exec rspec spec/models/source_spec.rb spec/models/sync_checkpoint_spec.rb exits 0."
+    },
+    {
+      "dimension_id": "scope_compliance",
+      "current_score": 3,
+      "target_score": 5,
+      "change_scope": [
+        "Future reprocess of historical issues should either split downstream tests/methods by feature ownership or mark mixed files as shared carriers explicitly."
+      ],
+      "do_not_touch": [
+        "Current production logic of sync_step! without a separate issue-level spec/plan review"
+      ],
+      "acceptance_signal": "Feature-level review no longer has to infer ownership for downstream behavior from mixed files."
+    }
+  ],
+  "global_constraints": [
+    "Do not patch production code just to silence an environment-level DB blocker.",
+    "Do not pretend mixed file ownership is clean feature isolation.",
+    "Treat the remaining blocker as process/runtime debt, not as a proven logic defect in the persistence slice."
+  ]
+}

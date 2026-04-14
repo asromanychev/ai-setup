@@ -1,0 +1,9 @@
+{
+  "artifact": "plan",
+  "version": 1,
+  "dimensions": [
+    "delta_quality",
+    "scope_control",
+    "runtime_gates"
+  ]
+}

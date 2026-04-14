@@ -1,0 +1,1 @@
+{"version":1,"stage":"spec","dimensions":[{"name":"contract_completeness","weight":0.3},{"name":"acceptance_precision","weight":0.25},{"name":"scope_control","weight":0.15},{"name":"invariants","weight":0.15},{"name":"testability","weight":0.15}]}

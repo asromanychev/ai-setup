@@ -1,0 +1,11 @@
+{
+  "artifact": "code",
+  "review": 1,
+  "verdict": "ready_for_activation",
+  "blocker": false,
+  "scores": {
+    "contract_fidelity": 5,
+    "scope_breach": 5,
+    "runtime_status": 5
+  }
+}

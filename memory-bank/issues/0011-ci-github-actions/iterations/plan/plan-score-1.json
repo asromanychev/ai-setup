@@ -1,0 +1,11 @@
+{
+  "verdict": "ready_for_activation",
+  "blocker": false,
+  "scores": {
+    "sequencing": 5,
+    "risk_control": 5,
+    "runtime_validation": 4,
+    "write_scope": 5,
+    "delivery_focus": 5
+  }
+}

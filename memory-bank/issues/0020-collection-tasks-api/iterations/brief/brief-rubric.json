@@ -1,0 +1,1 @@
+{"version":1,"stage":"brief","dimensions":[{"name":"problem_clarity","weight":0.3},{"name":"scope_boundary","weight":0.2},{"name":"user_impact","weight":0.2},{"name":"success_criteria","weight":0.2},{"name":"non_solution_bias","weight":0.1}]}

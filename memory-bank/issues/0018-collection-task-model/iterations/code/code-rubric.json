@@ -1,0 +1,63 @@
+{
+  "artifact": "code",
+  "version": "v1",
+  "issue": 18,
+  "scale": {
+    "min": 1,
+    "max": 5,
+    "anchor_levels": [1, 3, 5]
+  },
+  "weights_sum_must_equal": 1.0,
+  "dimensions": [
+    {
+      "id": "scope_compliance",
+      "name": "Scope Compliance",
+      "weight": 0.25,
+      "evaluation_mode": "isolated",
+      "blocker_if_score_lte": 2,
+      "level_1": "Изменены файлы вне allowlist без эскалации; или требования из spec.md не реализованы.",
+      "level_3": "Allowlist соблюдён, но есть незначительные отклонения от spec.md (нереализованный AC, лишняя логика).",
+      "level_5": "Только файлы из allowlist; каждый FR и инвариант из spec.md покрыт рабочим кодом."
+    },
+    {
+      "id": "invariant_preservation",
+      "name": "Invariant Preservation",
+      "weight": 0.25,
+      "evaluation_mode": "isolated",
+      "blocker_if_score_lte": 2,
+      "level_1": "Инварианты из spec.md нарушены: существующий контракт сломан или новый инвариант не соблюдается.",
+      "level_3": "Инварианты в основном соблюдены, но есть 1-2 edge case без защиты.",
+      "level_5": "Все инварианты из spec.md (immutable collection_mode, monotonic timestamps, orphan protection, uniqueness) реализованы и защищены от adversarial cases."
+    },
+    {
+      "id": "test_adequacy",
+      "name": "Test Adequacy",
+      "weight": 0.25,
+      "evaluation_mode": "isolated",
+      "blocker_if_score_lte": 2,
+      "level_1": "Тесты отсутствуют или покрывают только happy path; AC из spec.md не покрыты.",
+      "level_3": "Тесты есть, но часть AC не покрыта или adversarial cases пропущены.",
+      "level_5": "Все SC-1..SC-12 покрыты; adversarial cases для каждого инварианта; existing specs обновлены или помечены pending."
+    },
+    {
+      "id": "runtime_readiness",
+      "name": "Runtime Readiness",
+      "weight": 0.15,
+      "evaluation_mode": "isolated",
+      "blocker_if_score_lte": 2,
+      "level_1": "Синтаксические ошибки; приложение не стартует; миграции не применены.",
+      "level_3": "Приложение стартует, миграции применены, но есть runtime ошибки в отдельных сценариях.",
+      "level_5": "Все стадии Staged Validation 1-4 пройдены; приложение стартует; схема актуальна."
+    },
+    {
+      "id": "regression_risk",
+      "name": "Regression Risk",
+      "weight": 0.10,
+      "evaluation_mode": "isolated",
+      "blocker_if_score_lte": 2,
+      "level_1": "Существующие spec ломаются без явного плана их починки.",
+      "level_3": "Существующие spec обновлены, но есть pending без объяснения или сломанные тесты.",
+      "level_5": "Все существующие spec либо зелёные, либо помечены pending с явным объяснением; 0 failures при bin/ci."
+    }
+  ]
+}

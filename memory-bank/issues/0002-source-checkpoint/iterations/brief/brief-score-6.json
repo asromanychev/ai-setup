@@ -1,0 +1,66 @@
+{
+  "artifact": "brief",
+  "artifact_version": "brief-v7.md",
+  "review_file": "brief-review-6.md",
+  "rubric_file": "brief-rubric.json",
+  "dimensions": [
+    {
+      "id": "problem_clarity",
+      "score": 5,
+      "weight": 0.2,
+      "confidence": 0.95,
+      "blocker": false,
+      "evidence": [
+        "The brief defines concrete restart/resume failure symptoms and ambiguity around source selection and checkpoint ownership."
+      ],
+      "fix_expectation": "None."
+    },
+    {
+      "id": "stakeholder_specificity",
+      "score": 5,
+      "weight": 0.2,
+      "confidence": 0.93,
+      "blocker": false,
+      "evidence": [
+        "The orchestration layer and the developer operating incremental sync are both named explicitly."
+      ],
+      "fix_expectation": "None."
+    },
+    {
+      "id": "problem_solution_separation",
+      "score": 5,
+      "weight": 0.2,
+      "confidence": 0.96,
+      "blocker": false,
+      "evidence": [
+        "The document stays in problem space and excludes migrations, callbacks, and DB mechanics from success criteria."
+      ],
+      "fix_expectation": "None."
+    },
+    {
+      "id": "success_criteria_observability",
+      "score": 5,
+      "weight": 0.2,
+      "confidence": 0.94,
+      "blocker": false,
+      "evidence": [
+        "Each success criterion is expressed as an observable selection, persisted read, or explicit ambiguity error."
+      ],
+      "fix_expectation": "None."
+    },
+    {
+      "id": "scope_boundary_integrity",
+      "score": 5,
+      "weight": 0.2,
+      "confidence": 0.93,
+      "blocker": false,
+      "evidence": [
+        "The brief clearly excludes sync execution, jobs, payload storage, and provider-specific payload semantics."
+      ],
+      "fix_expectation": "None."
+    }
+  ],
+  "critical_risks": [],
+  "weighted_score": 5.0,
+  "verdict": "ready_for_activation"
+}

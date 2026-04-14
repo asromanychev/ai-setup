@@ -1,0 +1,9 @@
+{
+  "artifact": "spec",
+  "version": 1,
+  "dimensions": [
+    "requirement_completeness",
+    "edge_case_coverage",
+    "grounding"
+  ]
+}

@@ -164,6 +164,14 @@
   **Что:** Соглашения по папкам задач, структура brief/spec/plan/iterations.  
   **Читать, чтобы:** создавать или разбирать артефакты задач в `memory-bank/issues/<slug>/`.
 
+* `memory-bank/issues/RUNBOOK.md` → [открыть](issues/RUNBOOK.md)  
+  **Что:** Общий baseline по запуску окружения, ENV, `db:prepare`, staged/manual verification и git-check.  
+  **Читать, чтобы:** не дублировать setup в каждом issue и одинаково запускать/проверять фичи вручную.
+
+* `memory-bank/issues/AGENT_PRIMERING.md` → [открыть](issues/AGENT_PRIMERING.md)  
+  **Что:** Проектные правила праймеринга для разных ИИ-агентов и этапов workflow, включая manual-check.  
+  **Читать, чтобы:** подключать новый агент, выбирать правильный primer и не смешивать роли implementer/reviewer/manual-check.
+
 * `memory-bank/issues/MAKE_NEW_ISSUE.md` → [открыть](issues/MAKE_NEW_ISSUE.md)  
   **Что:** Полный сценарий агента от GitHub Issue до закрытия с артефактами.  
   **Читать, чтобы:** выполнять «одну команду запускает всё» или воспроизводить процесс для новой задачи.
@@ -199,8 +207,7 @@
 | **Triage / Orient** | `prd/PRD.md` → `project/overview.md` → глоссарий (on-demand) |
 | **Plan / Implement** | `engineering/coding-style.md` → spec/plan активного issue → `engineering/testing-policy.md` |
 | **Resume** | `activeContext.md` (первым) → `ROADMAP.md` → артефакты активного issue |
-| **New issue** | `issues/README.md` → `issues/MAKE_NEW_ISSUE.md` → `flows/workflows.md` |
+| **New issue** | `issues/README.md` → `issues/RUNBOOK.md` → `issues/AGENT_PRIMERING.md` → `issues/MAKE_NEW_ISSUE.md` → `flows/workflows.md` |
 | **Architecture decision** | `adr/README.md` → `flows/templates/adr/ADR-XXX.md` |
 
 Системные промпты для автозагрузки правильного контекста: [`.prompts/`](../.prompts/).
-

@@ -1,0 +1,10 @@
+{
+  "stage": "plan",
+  "dimensions": [
+    "sequencing",
+    "risk_control",
+    "runtime_validation",
+    "write_scope",
+    "delivery_focus"
+  ]
+}

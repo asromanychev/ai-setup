@@ -1,0 +1,17 @@
+{
+  "verdict": "ready",
+  "blocker": false,
+  "scores": {
+    "requirements_coverage": 5,
+    "runtime_safety": 4,
+    "operational_clarity": 5,
+    "scope_control": 5,
+    "verification_quality": 4
+  },
+  "evidence": [
+    "workflow yaml ok",
+    "bundle exec ruby -c config/ci.rb => Syntax OK",
+    "bundle exec rspec spec/core/collect => 40 examples, 0 failures",
+    "full suite blocked locally by missing reachable test DB"
+  ]
+}

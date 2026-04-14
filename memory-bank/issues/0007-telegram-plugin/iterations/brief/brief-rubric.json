@@ -1,0 +1,9 @@
+{
+  "artifact": "brief",
+  "version": 1,
+  "dimensions": [
+    "problem_clarity",
+    "scope_boundary",
+    "observable_success"
+  ]
+}

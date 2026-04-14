@@ -1,0 +1,11 @@
+{
+  "verdict": "ready_for_activation",
+  "blocker": false,
+  "scores": {
+    "problem_clarity": 5,
+    "stakeholders": 5,
+    "constraints": 5,
+    "success_criteria": 4,
+    "scope_control": 5
+  }
+}
